@@ -5,4 +5,5 @@
     <string name="search">Search</string>
     <string name="about">About</string>
     <string name="logo">logo</string>
+    <string name="input_username">Input Username</string>
 </resources>

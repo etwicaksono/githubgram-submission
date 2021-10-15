@@ -8,4 +8,5 @@
     android:theme="@style/ToolbarTheme"
     app:popupTheme="@style/Theme.AppCompat.Light"
     app:titleTextAppearance="@style/Toolbar.TitleText"
-    tools:title="@string/app_name"/>
+    tools:title="@string/app_name"
+    app:menu="@menu/menu_main"/>

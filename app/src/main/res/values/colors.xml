@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey_1">#3A3939</color>
     <color name="grey_2">#2B2A2A</color>
+
+    <color name="cursorAccent">#A7FFEB</color>
+    <color name="controlNormal">#B9F6CA</color>
+    <color name="controlActivated">#CCFF90</color>
 </resources>

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Submission2">
         <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashScreenActivity"
             android:exported="true">
             <intent-filter>

@@ -33,7 +33,6 @@ class UserListAdapter(private val listUser: List<ResponseUserItem>) :
         holder.binding.itemRowUser.setOnClickListener { view ->
             val toDetailUserFragment =
                 UserListFragmentDirections.actionUserListFragmentToDetailUserFragment()
-//            toDetailUserFragment.thisIsMe = false
             view.findNavController().navigate(toDetailUserFragment)
         }
     }

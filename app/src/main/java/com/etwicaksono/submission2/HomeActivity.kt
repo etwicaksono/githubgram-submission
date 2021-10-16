@@ -6,13 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import com.etwicaksono.submission2.databinding.ActivityHomeBinding
-import com.etwicaksono.submission2.databinding.ItemRowUserBinding
 
 class HomeActivity : AppCompatActivity() {
 
@@ -61,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
                 Log.d(TAG, "onItemSelected : search")
             }
             R.id.about -> {
-                val about = ItemRowUserBinding.bind(findViewById(R.id.item_row_user))
+
                 Log.d(TAG, "onItemSelected : about")
             }
         }

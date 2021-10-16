@@ -9,8 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.etwicaksono.submission2.databinding.FragmentUserListBinding
-import com.etwicaksono.submission2.databinding.ProgressBarBinding
-import com.etwicaksono.submission2.databinding.ToolbarMainBinding
 
 
 class UserListFragment : Fragment() {
@@ -43,14 +41,13 @@ class UserListFragment : Fragment() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.progressBar.visibility=if(isLoading) View.VISIBLE else View.INVISIBLE
+        binding.progressBar.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
     }
 
     private fun setUsersData(listUser: List<ResponseUserItem>?) {
         val adapter = listUser?.let { UserListAdapter(it) }
         binding.rvUsers.adapter = adapter
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

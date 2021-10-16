@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.etwicaksono.submission2.databinding.FragmentUserListBinding
@@ -14,6 +15,8 @@ class UserListFragment : Fragment() {
 
     private var _binding: FragmentUserListBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel:UserListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,12 +35,14 @@ class UserListFragment : Fragment() {
         val itemDecoration=DividerItemDecoration(context,layoutManager.orientation)
         binding.rvUsers.addItemDecoration(itemDecoration)
 
-        getAllUsers()
+        viewModel.listUser.observe(viewLifecycleOwner,{listUser->setUsersData(listUser)})
     }
 
-    private fun getAllUsers() {
-        TODO("Not yet implemented")
+    private fun setUsersData(listUser: List<ResponseUserItem>?) {
+        val adapter= listUser?.let { UserListAdapter(it) }
+        binding.rvUsers.adapter=adapter
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

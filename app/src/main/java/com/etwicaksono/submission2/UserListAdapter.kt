@@ -3,7 +3,7 @@ package com.etwicaksono.submission2
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.etwicaksono.submission2.databinding.ItemRowUserBinding
@@ -30,8 +30,11 @@ class UserListAdapter(private val listUser: List<ResponseUserItem>) :
                 .into(imgUser)
         }
 
-        holder.binding.itemRowUser.setOnClickListener {
-
+        holder.binding.itemRowUser.setOnClickListener { view ->
+            val toDetailUserFragment =
+                UserListFragmentDirections.actionUserListFragmentToDetailUserFragment()
+//            toDetailUserFragment.thisIsMe = false
+            view.findNavController().navigate(toDetailUserFragment)
         }
     }
 

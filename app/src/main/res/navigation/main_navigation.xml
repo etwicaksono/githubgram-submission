@@ -9,5 +9,14 @@
         android:id="@+id/userListFragment"
         android:name="com.etwicaksono.submission2.UserListFragment"
         android:label="fragment_user_list"
-        tools:layout="@layout/fragment_user_list" />
+        tools:layout="@layout/fragment_user_list" >
+        <action
+            android:id="@+id/action_userListFragment_to_detailUserFragment"
+            app:destination="@id/detailUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailUserFragment"
+        android:name="com.etwicaksono.submission2.DetailUserFragment"
+        android:label="fragment_detail_user"
+        tools:layout="@layout/fragment_detail_user" />
 </navigation>

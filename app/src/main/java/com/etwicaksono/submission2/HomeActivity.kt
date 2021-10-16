@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import com.etwicaksono.submission2.databinding.ActivityHomeBinding
-import com.etwicaksono.submission2.databinding.ToolbarMainBinding
 
 class HomeActivity : AppCompatActivity() {
 

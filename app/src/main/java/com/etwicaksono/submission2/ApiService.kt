@@ -10,7 +10,7 @@ interface ApiService {
     @Headers("Authorization: token<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>")
 
     @GET("users")
-    fun getAllUsers():Call<ResponseUser>
+    fun getAllUsers():Call<List<ResponseUserItem>>
 
     @GET("search/user")
     fun searchUser(@Query("q")q:String):Call<ResponseUser>

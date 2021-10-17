@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.etwicaksono.submission2.databinding.FragmentDetailUserBinding
 
-class DetailUserFragment : Fragment() {
+class UserDetailFragment : Fragment() {
     
     private var _binding:FragmentDetailUserBinding?=null
     private val binding get()=_binding!!
@@ -19,6 +19,14 @@ class DetailUserFragment : Fragment() {
     ): View {
         _binding = FragmentDetailUserBinding.inflate(inflater,container,false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnBack.setOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
 }

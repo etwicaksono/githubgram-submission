@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailUserFragment"
-        android:name="com.etwicaksono.submission2.DetailUserFragment"
+        android:name="com.etwicaksono.submission2.UserDetailFragment"
         android:label="fragment_detail_user"
         tools:layout="@layout/fragment_detail_user" />
 </navigation>

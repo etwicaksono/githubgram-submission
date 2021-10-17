@@ -6,4 +6,8 @@
     <string name="about">About</string>
     <string name="logo">logo</string>
     <string name="input_username">Input Username</string>
+    <string name="back_button">back button</string>
+    <string name="repositories">Repositories</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
 </resources>

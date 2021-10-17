@@ -4,9 +4,6 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
-
-    @Headers("Authorization: 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")
-
     @GET("users")
     fun getAllUsers():Call<List<ResponseUserItem>>
 

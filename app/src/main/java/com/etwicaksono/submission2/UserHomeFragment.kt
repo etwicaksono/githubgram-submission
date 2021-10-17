@@ -55,6 +55,18 @@ class UserHomeFragment : Fragment() {
         searchView.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+
+                val model: UsersListViewModel by viewModels { UsersListViewModel.Factory("search") }
+                viewModel = model
+
+                viewModel.searchData.observe(viewLifecycleOwner,
+                    { searchData ->
+                        setUsersData(searchData)
+                        Log.d(TAG, "onSuccess: $searchData")
+                    })
+
+                viewModel.loadingSearch.observe(viewLifecycleOwner,{isLoading->showLoading(isLoading)})
+
                 Toast.makeText(context, "Submited: $query", Toast.LENGTH_SHORT).show()
                 return true
             }
@@ -108,6 +120,7 @@ class UserHomeFragment : Fragment() {
     private fun setUsersData(listUser: List<ResponseUserItem>?) {
         val adapter = listUser?.let { UserHomeAdapter(it) }
         binding.rvUsers.adapter = adapter
+        binding.rvUsers.adapter!!.notifyDataSetChanged()
     }
 
     override fun onDestroy() {

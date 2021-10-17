@@ -27,6 +27,13 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
     private val _following = MutableLiveData<List<ResponseUserItem>>()
     val following: LiveData<List<ResponseUserItem>> = _following
 
+    private val _userData = MutableLiveData<ResponseUserDetail>()
+    val userData: LiveData<ResponseUserDetail> = _userData
+
+    private val _searchData = MutableLiveData<List<ResponseUserItem>>()
+    val searchData: LiveData<List<ResponseUserItem>> = _searchData
+
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -35,9 +42,6 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
 
     private val _loadingSearch = MutableLiveData<Boolean>()
     val loadingSearch: LiveData<Boolean> = _loadingSearch
-
-    private val _userData = MutableLiveData<ResponseUserDetail>()
-    val userData: LiveData<ResponseUserDetail> = _userData
 
     companion object {
         private val TAG = UsersListViewModel::class.java.simpleName
@@ -57,20 +61,24 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
     private fun searchUser(username: String) {
         _loadingSearch.value = true
         val client = api.searchUser(username)
-        client.enqueue(object : Callback<List<ResponseUserItem>> {
+        client.enqueue(object : Callback<ResponseSearch> {
             override fun onResponse(
-                call: Call<List<ResponseUserItem>>,
-                response: Response<List<ResponseUserItem>>
+                call: Call<ResponseSearch>,
+                response: Response<ResponseSearch>
             ) {
                 _loadingSearch.value = false
                 if (response.isSuccessful) {
-                    _followers.postValue(response.body())
+                    response.body()?.items.let {
+                        if (!it.isNullOrEmpty()) _searchData.postValue(
+                            it
+                        )
+                    }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<List<ResponseUserItem>>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseSearch>, t: Throwable) {
                 _loadingSearch.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }

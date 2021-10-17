@@ -11,7 +11,7 @@ data class ResponseSearch(
 	val incompleteResults: Boolean? = null,
 
 	@field:SerializedName("items")
-	val items: List<ItemsItem?>? = null
+	val items: List<ResponseUserItem>? = null
 )
 
 data class ItemsItem(

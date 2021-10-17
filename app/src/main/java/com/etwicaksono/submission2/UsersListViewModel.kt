@@ -30,6 +30,9 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _isLoading2 = MutableLiveData<Boolean>()
+    val isLoading2: LiveData<Boolean> = _isLoading2
+
     private val _userData = MutableLiveData<ResponseUserDetail>()
     val userData: LiveData<ResponseUserDetail> = _userData
 
@@ -72,14 +75,14 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
     }
 
     private fun getFollowingData(username: String) {
-        _isLoading.value = true
+        _isLoading2.value = true
         val client = api.getUserFollowing(username)
         client.enqueue(object : Callback<List<ResponseUserItem>> {
             override fun onResponse(
                 call: Call<List<ResponseUserItem>>,
                 response: Response<List<ResponseUserItem>>
             ) {
-                _isLoading.value = false
+                _isLoading2.value = false
                 if (response.isSuccessful) {
                     _following.postValue(response.body())
                 } else {
@@ -88,7 +91,7 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
             }
 
             override fun onFailure(call: Call<List<ResponseUserItem>>, t: Throwable) {
-                _isLoading.value = false
+                _isLoading2.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
 

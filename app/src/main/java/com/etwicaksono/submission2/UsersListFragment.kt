@@ -23,7 +23,7 @@ class UsersListFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(type: String, username: String) =
+        fun newInstance(type: String, username: String): UsersListFragment =
             UsersListFragment().apply {
                 arguments = Bundle().apply {
                     putString("type", type)
@@ -60,23 +60,35 @@ class UsersListFragment : Fragment() {
             addItemDecoration(itemDecoration)
         }
 
-        viewModel.followers.observe(viewLifecycleOwner, { listUser ->
-            setUsersData(listUser)
-        })
-        viewModel.following.observe(viewLifecycleOwner, { listUser ->
-            setUsersData(listUser)
-        })
+        viewModel.apply {
+            isLoading2.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
 
-        viewModel.listUser.observe(viewLifecycleOwner, { listUser ->
-            setUsersData(listUser)
-        })
-
+            if (type == "followers") {
+                followers.observe(viewLifecycleOwner, { listUser ->
+                    setUsersData(listUser)
+                })
+            } else if (type == "following") {
+                following.observe(viewLifecycleOwner, { listUser ->
+                    setUsersData(listUser)
+                })
+            }
+        }
 
     }
 
     private fun setUsersData(listUser: List<ResponseUserItem>?) {
         val adapter = listUser?.let { UsersListAdapter(it) }
         binding.rvUsers.adapter = adapter
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBarWrapper.progressBar.visibility =
+                View.VISIBLE
+        } else {
+            binding.progressBarWrapper.progressBar.visibility =
+                View.INVISIBLE
+        }
     }
 
     override fun onDestroy() {

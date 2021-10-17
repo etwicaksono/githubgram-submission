@@ -35,7 +35,8 @@ class UserDetailFragment : Fragment() {
     ): View {
         _binding = FragmentDetailUserBinding.inflate(inflater, container, false)
 
-        val sectionsPagerAdapter = UsersListPagerAdapter(this)
+        val sectionsPagerAdapter = UsersListPagerAdapter(this,username)
+//        val sectionsPagerAdapter = UsersListPagerAdapter(this,"etwicaksono")
         binding.viewPager.adapter = sectionsPagerAdapter
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
@@ -53,8 +54,8 @@ class UserDetailFragment : Fragment() {
         }
 
         viewModel.apply {
-            this.isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
-            this.userData.observe(viewLifecycleOwner, { userData -> setUserData(userData) })
+            isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
+            userData.observe(viewLifecycleOwner, { userData -> setUserData(userData) })
         }
     }
 

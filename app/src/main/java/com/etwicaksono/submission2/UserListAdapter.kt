@@ -33,6 +33,7 @@ class UserListAdapter(private val listUser: List<ResponseUserItem>) :
         holder.binding.itemRowUser.setOnClickListener { view ->
             val toDetailUserFragment =
                 UserListFragmentDirections.actionUserListFragmentToDetailUserFragment()
+            toDetailUserFragment.username=listUser[position].login
             view.findNavController().navigate(toDetailUserFragment)
         }
     }

@@ -16,7 +16,7 @@ interface ApiService {
     fun searchUser(@Query("q")q:String):Call<ResponseUser>
 
     @GET("users/{username}")
-    fun getUserDetail(@Path("username") username:String):Call<ResponseUserItem>
+    fun getUserDetail(@Path("username") username:String):Call<ResponseUserDetail>
 
     @GET("users/{username}/followers")
     fun getUserFollowers(@Path("username") username: String):Call<ResponseUser>

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.etwicaksono.submission2.databinding.FragmentFollowListBinding
 
 
-class FollowListFragment(private val type: String) : Fragment() {
+class UsersListFragment(private val type: String) : Fragment() {
 
     private var _binding: FragmentFollowListBinding? = null
     private val binding get() = _binding!!

@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserListViewModel : ViewModel() {
+class UserHomeViewModel : ViewModel() {
 
     private val _listUsers = MutableLiveData<List<ResponseUserItem>>()
     val listUser: LiveData<List<ResponseUserItem>> = _listUsers
@@ -17,7 +17,7 @@ class UserListViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
     companion object {
-        private val TAG = UserListViewModel::class.java.simpleName
+        private val TAG = UserHomeViewModel::class.java.simpleName
     }
 
     init {

@@ -13,18 +13,18 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.etwicaksono.submission2.databinding.FragmentUserListBinding
+import com.etwicaksono.submission2.databinding.FragmentUserHomeBinding
 
 
-class UserListFragment : Fragment() {
+class UserHomeFragment : Fragment() {
 
-    private var _binding: FragmentUserListBinding? = null
+    private var _binding: FragmentUserHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: UserListViewModel by viewModels()
+    private val viewModel: UserHomeViewModel by viewModels()
 
     companion object {
-        private val TAG = UserListFragment::class.java.simpleName
+        private val TAG = UserHomeFragment::class.java.simpleName
     }
 
     override fun onCreateView(
@@ -32,7 +32,7 @@ class UserListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentUserListBinding.inflate(inflater, container, false)
+        _binding = FragmentUserHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -68,7 +68,7 @@ class UserListFragment : Fragment() {
                     }
                     R.id.about -> {
                         val toDetailUserFragment =
-                            UserListFragmentDirections.actionUserListFragmentToDetailUserFragment()
+                            UserHomeFragmentDirections.actionUserListFragmentToDetailUserFragment()
                         Navigation.findNavController(this).navigate(toDetailUserFragment)
                         Log.d(TAG, "onItemSelected : about")
                     }
@@ -100,7 +100,7 @@ class UserListFragment : Fragment() {
     }
 
     private fun setUsersData(listUser: List<ResponseUserItem>?) {
-        val adapter = listUser?.let { UserListAdapter(it) }
+        val adapter = listUser?.let { UserHomeAdapter(it) }
         binding.rvUsers.adapter = adapter
     }
 

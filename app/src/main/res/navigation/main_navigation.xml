@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/userListFragment"
-        android:name="com.etwicaksono.submission2.UserListFragment"
+        android:name="com.etwicaksono.submission2.UserHomeFragment"
         android:label="fragment_user_list"
-        tools:layout="@layout/fragment_user_list" >
+        tools:layout="@layout/fragment_user_home" >
         <action
             android:id="@+id/action_userListFragment_to_detailUserFragment"
             app:destination="@id/detailUserFragment" />

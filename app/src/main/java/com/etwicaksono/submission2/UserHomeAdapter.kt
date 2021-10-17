@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.etwicaksono.submission2.databinding.ItemRowUserBinding
 
-class UserListAdapter(private val listUser: List<ResponseUserItem>) :
-    RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
+class UserHomeAdapter(private val listUser: List<ResponseUserItem>) :
+    RecyclerView.Adapter<UserHomeAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemRowUserBinding.bind(view)
     }
@@ -32,7 +32,7 @@ class UserListAdapter(private val listUser: List<ResponseUserItem>) :
 
         holder.binding.itemRowUser.setOnClickListener { view ->
             val toDetailUserFragment =
-                UserListFragmentDirections.actionUserListFragmentToDetailUserFragment()
+                UserHomeFragmentDirections.actionUserListFragmentToDetailUserFragment()
             toDetailUserFragment.username=listUser[position].login
             view.findNavController().navigate(toDetailUserFragment)
         }

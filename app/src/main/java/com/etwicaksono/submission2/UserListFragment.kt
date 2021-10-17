@@ -1,9 +1,13 @@
 package com.etwicaksono.submission2
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,6 +22,10 @@ class UserListFragment : Fragment() {
 
     private val viewModel: UserListViewModel by viewModels()
 
+    companion object {
+        private val TAG = UserListFragment::class.java.simpleName
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,6 +38,37 @@ class UserListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val searchManager= activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView= binding.toolbar.menu.findItem(R.id.search).actionView as androidx.appcompat.widget.SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+        searchView.queryHint=resources.getString(R.string.input_username)
+        searchView.setOnQueryTextListener(object:androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                Toast.makeText(context,"Submited: $query",Toast.LENGTH_SHORT).show()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Toast.makeText(context,"Changed: $newText",Toast.LENGTH_SHORT).show()
+                return false
+            }
+
+        })
+
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.search -> {
+                    Log.d(TAG, "onItemSelected : search")
+                }
+                R.id.about -> {
+
+                    Log.d(TAG, "onItemSelected : about")
+                }
+            }
+            true
+        }
+
         val layoutManager = LinearLayoutManager(context)
         binding.rvUsers.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(context, layoutManager.orientation)
@@ -40,8 +79,10 @@ class UserListFragment : Fragment() {
         viewModel.isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
     }
 
+
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
+        binding.progressBarWrapper.progressBar.visibility =
+            if (isLoading) View.VISIBLE else View.INVISIBLE
     }
 
     private fun setUsersData(listUser: List<ResponseUserItem>?) {

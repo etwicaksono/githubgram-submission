@@ -33,6 +33,9 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
     private val _isLoading2 = MutableLiveData<Boolean>()
     val isLoading2: LiveData<Boolean> = _isLoading2
 
+    private val _loadingSearch = MutableLiveData<Boolean>()
+    val loadingSearch: LiveData<Boolean> = _loadingSearch
+
     private val _userData = MutableLiveData<ResponseUserDetail>()
     val userData: LiveData<ResponseUserDetail> = _userData
 
@@ -47,7 +50,32 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
             "detail user" -> getUserData(username!!)
             "followers" -> getFollowersData(username!!)
             "following" -> getFollowingData(username!!)
+            "search" -> searchUser(username!!)
         }
+    }
+
+    private fun searchUser(username: String) {
+        _loadingSearch.value = true
+        val client = api.searchUser(username)
+        client.enqueue(object : Callback<List<ResponseUserItem>> {
+            override fun onResponse(
+                call: Call<List<ResponseUserItem>>,
+                response: Response<List<ResponseUserItem>>
+            ) {
+                _loadingSearch.value = false
+                if (response.isSuccessful) {
+                    _followers.postValue(response.body())
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<ResponseUserItem>>, t: Throwable) {
+                _loadingSearch.value = false
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+
+        })
     }
 
     private fun getFollowersData(username: String) {

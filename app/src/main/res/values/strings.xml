@@ -11,4 +11,6 @@
     <string name="follower">Follower</string>
     <string name="following">Following</string>
     <string name="image">image</string>
+    <string name="tab_text_1">Followers</string>
+    <string name="tab_text_2">Following</string>
 </resources>

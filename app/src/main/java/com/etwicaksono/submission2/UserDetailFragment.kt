@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.etwicaksono.submission2.databinding.FragmentDetailUserBinding
+import com.google.android.material.tabs.TabLayoutMediator
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -20,6 +22,11 @@ class UserDetailFragment : Fragment() {
     private lateinit var username: String
     private lateinit var viewModel: UserDetailViewModel
 
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(R.string.tab_text_1, R.string.tab_text_2)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +34,13 @@ class UserDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailUserBinding.inflate(inflater, container, false)
+
+        val sectionsPagerAdapter = SectionsPagerAdapter(this)
+        binding.viewPager.adapter = sectionsPagerAdapter
+        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+
         return binding.root
     }
 

@@ -9,9 +9,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UsersListViewModel(type: String, username: String) : ViewModel() {
+class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
 
-    class Factory(private val type: String, private val username: String) :
+    class Factory(private val type: String, private val username: String? = null) :
         ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return UsersListViewModel(type, username) as T
@@ -35,9 +35,9 @@ class UsersListViewModel(type: String, username: String) : ViewModel() {
     init {
         when (type.lowercase()) {
             "all" -> getAllUsers()
-            "detailuser" -> getUserData(username)
-            "followers" -> getFollowersData(username)
-            "following" -> getFollowingData(username)
+            "detailuser" -> getUserData(username!!)
+            "followers" -> getFollowersData(username!!)
+            "following" -> getFollowingData(username!!)
         }
     }
 

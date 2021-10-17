@@ -21,7 +21,7 @@ class UserHomeFragment : Fragment() {
     private var _binding: FragmentUserHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: UserHomeViewModel by viewModels()
+    private lateinit var viewModel: UsersListViewModel
 
     companion object {
         private val TAG = UserHomeFragment::class.java.simpleName
@@ -34,6 +34,12 @@ class UserHomeFragment : Fragment() {
     ): View {
         _binding = FragmentUserHomeBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val model: UsersListViewModel by viewModels { UsersListViewModel.Factory("all") }
+        viewModel = model
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -20,7 +20,7 @@ class UserDetailFragment : Fragment() {
     private var _binding: FragmentDetailUserBinding? = null
     private val binding get() = _binding!!
     private lateinit var username: String
-    private lateinit var viewModel: UserDetailViewModel
+    private lateinit var viewModel: UsersListViewModel
 
     companion object {
         @StringRes
@@ -64,7 +64,7 @@ class UserDetailFragment : Fragment() {
         username =
             UserDetailFragmentArgs.fromBundle(arguments as Bundle).username.let { if (it.isEmpty()) "etwicaksono" else it }
 
-        val model: UserDetailViewModel by viewModels { UserDetailViewModel.Factory(username) }
+        val model: UsersListViewModel by viewModels { UsersListViewModel.Factory("detailuser",username) }
         viewModel = model
     }
 

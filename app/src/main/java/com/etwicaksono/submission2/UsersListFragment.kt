@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.etwicaksono.submission2.databinding.FragmentUsersListBinding
 
 
@@ -16,6 +18,11 @@ class UsersListFragment(private val type: String, private val username: String) 
     private val binding get() = _binding!!
 
     private lateinit var viewModel: UsersListViewModel
+
+
+    companion object {
+        private val TAG = UsersListFragment::class.java.simpleName
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +41,17 @@ class UsersListFragment(private val type: String, private val username: String) 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.listUser.observe(viewLifecycleOwner, { listUser -> setUsersData(listUser) })
+
+        val layoutManager = LinearLayoutManager(context)
+        val itemDecoration = DividerItemDecoration(context, layoutManager.orientation)
+
+        binding.rvUsers.apply {
+            this.layoutManager = layoutManager
+            addItemDecoration(itemDecoration)
+        }
+
+        viewModel.followers.observe(viewLifecycleOwner, { listUser -> setUsersData(listUser) })
+        viewModel.following.observe(viewLifecycleOwner, { listUser -> setUsersData(listUser) })
     }
 
     private fun setUsersData(listUser: List<ResponseUserItem>?) {

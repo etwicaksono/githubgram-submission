@@ -21,6 +21,12 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
     private val _listUsers = MutableLiveData<List<ResponseUserItem>>()
     val listUser: LiveData<List<ResponseUserItem>> = _listUsers
 
+    private val _followers = MutableLiveData<List<ResponseUserItem>>()
+    val followers: LiveData<List<ResponseUserItem>> = _followers
+
+    private val _following = MutableLiveData<List<ResponseUserItem>>()
+    val following: LiveData<List<ResponseUserItem>> = _following
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -33,9 +39,9 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
     }
 
     init {
-        when (type.lowercase()) {
+        when (type) {
             "all" -> getAllUsers()
-            "detailuser" -> getUserData(username!!)
+            "detail user" -> getUserData(username!!)
             "followers" -> getFollowersData(username!!)
             "following" -> getFollowingData(username!!)
         }
@@ -51,9 +57,9 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _listUsers.postValue(response.body())
+                    _followers.postValue(response.body())
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message().toString()}")
+                    Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
 
@@ -67,7 +73,7 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
 
     private fun getFollowingData(username: String) {
         _isLoading.value = true
-        val client = api.getUserFollowers(username)
+        val client = api.getUserFollowing(username)
         client.enqueue(object : Callback<List<ResponseUserItem>> {
             override fun onResponse(
                 call: Call<List<ResponseUserItem>>,
@@ -75,9 +81,9 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _listUsers.postValue(response.body())
+                    _following.postValue(response.body())
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message().toString()}")
+                    Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
 
@@ -125,7 +131,7 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
                 if (response.isSuccessful) {
                     _userData.postValue(response.body())
                 } else {
-                    Log.e(TAG, "onFailue: ${response.message().toString()}")
+                    Log.e(TAG, "onFailue: ${response.message()}")
                 }
             }
 

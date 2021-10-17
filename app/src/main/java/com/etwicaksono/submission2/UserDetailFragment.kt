@@ -36,7 +36,6 @@ class UserDetailFragment : Fragment() {
         _binding = FragmentDetailUserBinding.inflate(inflater, container, false)
 
         val sectionsPagerAdapter = UsersListPagerAdapter(this,username)
-//        val sectionsPagerAdapter = UsersListPagerAdapter(this,"etwicaksono")
         binding.viewPager.adapter = sectionsPagerAdapter
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
@@ -62,9 +61,9 @@ class UserDetailFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         username =
-            UserDetailFragmentArgs.fromBundle(arguments as Bundle).username.let { if (it.isEmpty()) "etwicaksono" else it }
+            UserDetailFragmentArgs.fromBundle(arguments as Bundle).username
 
-        val model: UsersListViewModel by viewModels { UsersListViewModel.Factory("detailuser",username) }
+        val model: UsersListViewModel by viewModels { UsersListViewModel.Factory("detail user",username) }
         viewModel = model
     }
 

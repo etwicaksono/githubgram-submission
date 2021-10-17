@@ -88,7 +88,7 @@ class UserHomeFragment : Fragment() {
 
         binding.rvUsers.apply {
             this.layoutManager = layoutManager
-            this.addItemDecoration(itemDecoration)
+            addItemDecoration(itemDecoration)
         }
 
         viewModel.apply {

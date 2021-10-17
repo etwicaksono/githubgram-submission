@@ -24,4 +24,18 @@
             app:argType="string"
             android:defaultValue="etwicaksono" />
     </fragment>
+    <fragment
+        android:id="@+id/usersListFragment"
+        android:name="com.etwicaksono.submission2.UsersListFragment"
+        android:label="fragment_users_list"
+        tools:layout="@layout/fragment_users_list" >
+        <argument
+            android:name="type"
+            app:argType="string"
+            android:defaultValue="all" />
+        <argument
+            android:name="username"
+            app:argType="string"
+            android:defaultValue="etwicaksono" />
+    </fragment>
 </navigation>

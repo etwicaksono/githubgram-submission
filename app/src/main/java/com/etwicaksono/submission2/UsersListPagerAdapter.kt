@@ -10,7 +10,7 @@ class UsersListPagerAdapter(fm: Fragment, private val username: String) : Fragme
     )
 
     override fun createFragment(position: Int): Fragment {
-        return UsersListFragment(tab[position], username)
+        return UsersListFragment.newInstance(tab[position], username)
     }
 
     override fun getItemCount(): Int {

@@ -12,16 +12,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.etwicaksono.submission2.databinding.FragmentUsersListBinding
 
 
-class UsersListFragment(private val type: String, private val username: String) : Fragment() {
+class UsersListFragment : Fragment() {
 
     private var _binding: FragmentUsersListBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var type: String
+    private lateinit var username: String
     private lateinit var viewModel: UsersListViewModel
 
-
     companion object {
-        private val TAG = UsersListFragment::class.java.simpleName
+        @JvmStatic
+        fun newInstance(type: String, username: String) =
+            UsersListFragment().apply {
+                arguments = Bundle().apply {
+                    putString("type", type)
+                    putString("username", username)
+                }
+            }
     }
 
     override fun onCreateView(
@@ -35,6 +43,8 @@ class UsersListFragment(private val type: String, private val username: String) 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        type = UsersListFragmentArgs.fromBundle(arguments as Bundle).type
+        username = UsersListFragmentArgs.fromBundle(arguments as Bundle).username
         val model: UsersListViewModel by viewModels { UsersListViewModel.Factory(type, username) }
         viewModel = model
     }
@@ -50,8 +60,18 @@ class UsersListFragment(private val type: String, private val username: String) 
             addItemDecoration(itemDecoration)
         }
 
-        viewModel.followers.observe(viewLifecycleOwner, { listUser -> setUsersData(listUser) })
-        viewModel.following.observe(viewLifecycleOwner, { listUser -> setUsersData(listUser) })
+        viewModel.followers.observe(viewLifecycleOwner, { listUser ->
+            setUsersData(listUser)
+        })
+        viewModel.following.observe(viewLifecycleOwner, { listUser ->
+            setUsersData(listUser)
+        })
+
+        viewModel.listUser.observe(viewLifecycleOwner, { listUser ->
+            setUsersData(listUser)
+        })
+
+
     }
 
     private fun setUsersData(listUser: List<ResponseUserItem>?) {

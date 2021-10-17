@@ -9,7 +9,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserDetailViewModel(private val username: String) : ViewModel() {
+class UserDetailViewModel(username: String) : ViewModel() {
 
     class Factory(private val username:String):ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

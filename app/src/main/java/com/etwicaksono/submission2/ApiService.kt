@@ -13,15 +13,15 @@ interface ApiService {
     fun getAllUsers():Call<List<ResponseUserItem>>
 
     @GET("search/user")
-    fun searchUser(@Query("q")q:String):Call<ResponseUser>
+    fun searchUser(@Query("q")q:String):Call<List<ResponseUserItem>>
 
     @GET("users/{username}")
     fun getUserDetail(@Path("username") username:String):Call<ResponseUserDetail>
 
     @GET("users/{username}/followers")
-    fun getUserFollowers(@Path("username") username: String):Call<ResponseUser>
+    fun getUserFollowers(@Path("username") username: String):Call<List<ResponseUserItem>>
 
     @GET("users/{username}/following")
-    fun getUserFollowing(@Path("username")username: String):Call<ResponseUser>
+    fun getUserFollowing(@Path("username")username: String):Call<List<ResponseUserItem>>
 
 }

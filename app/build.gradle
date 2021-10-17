@@ -67,6 +67,9 @@ dependencies {
     /*Flexbox layout*/
     implementation 'com.google.android:flexbox:0.3.0'
 
+    /*ViewPager*/
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

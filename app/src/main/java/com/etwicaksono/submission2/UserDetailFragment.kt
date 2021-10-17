@@ -110,7 +110,7 @@ class UserDetailFragment : Fragment() {
         }
     }
 
-    fun numberFormat(value: String, useSymbol: Boolean = false): String {
+    private fun numberFormat(value: String, useSymbol: Boolean = false): String {
         val result: Any
         if (useSymbol) {
             val local = Locale("id", "ID")

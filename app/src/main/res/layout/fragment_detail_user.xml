@@ -28,8 +28,8 @@
 
             <ImageButton
                 android:id="@+id/btn_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/back_button"
                 android:src="@drawable/ic_arrow_back_white_24" />
@@ -39,12 +39,12 @@
                 style="@style/header_text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                tools:text="Username" />
+                tools:text="\@mojombo" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
+        android:id="@+id/main_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,93 +54,182 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_user"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="8dp"
-                tools:src="@tools:sample/avatars" />
-
-            <com.google.android.flexbox.FlexboxLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:alignItems="center"
-                app:flexDirection="row"
-                app:flexWrap="wrap"
-                app:justifyContent="space_around">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_user"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    tools:src="@tools:sample/avatars" />
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:alignItems="center"
+                    app:flexDirection="row"
+                    app:flexWrap="wrap"
+                    app:justifyContent="space_around">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_repository"
+                            style="@style/header_text1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            tools:text="1.234" />
+
+                        <TextView
+                            style="@style/body_text2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/repositories"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_follower"
+                            style="@style/header_text1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            tools:text="1.234" />
+
+                        <TextView
+                            style="@style/body_text2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/follower"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_following"
+                            style="@style/header_text1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            tools:text="1.234" />
+
+                        <TextView
+                            style="@style/body_text2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/following"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                </com.google.android.flexbox.FlexboxLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/body_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                tools:text="Tom Preston-Werner" />
+
+            <LinearLayout
+                android:id="@+id/wrapper_html_url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/ic_logo_github_white" />
+
+                <TextView
+                    android:id="@+id/tv_html_url"
+                    style="@style/body_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:layout_marginStart="8dp"
+                    tools:text="https://github.com/etwicaksono" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_repository"
-                        style="@style/header_text1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        tools:text="1.234" />
+            <LinearLayout
+                android:id="@+id/wrapper_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
 
-                    <TextView
-                        style="@style/body_text2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/repositories"
-                        android:textColor="@color/white" />
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/ic_location_white" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_location"
+                    style="@style/body_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginStart="8dp"
+                    tools:text="San Francisco" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_follower"
-                        style="@style/header_text1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        tools:text="1.234" />
+            <LinearLayout
+                android:id="@+id/wrapper_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
 
-                    <TextView
-                        style="@style/body_text2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/follower"
-                        android:textColor="@color/white" />
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/ic_company_white" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_company"
+                    style="@style/body_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_following"
-                        style="@style/header_text1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        tools:text="1.234" />
-
-                    <TextView
-                        style="@style/body_text2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/following"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-
-            </com.google.android.flexbox.FlexboxLayout>
+                    android:layout_marginStart="8dp"
+                    tools:text="\@chatterbugapp, \@redwoodjs, \@preston-werner-ventures" />
+            </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
 

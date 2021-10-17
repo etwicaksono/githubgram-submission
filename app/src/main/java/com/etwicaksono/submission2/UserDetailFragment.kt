@@ -60,17 +60,54 @@ class UserDetailFragment : Fragment() {
                 .load(userData?.avatarUrl)
                 .into(imgUser)
 
-            toolbarTitle.text = userData?.login
-            tvRepository.text = userData?.publicRepos.let { numberFormat(it.toString()) }
-            tvFollower.text = userData?.followers.let { numberFormat(it.toString()) }
-            tvFollowing.text = userData?.following.let { numberFormat(it.toString()) }
+            toolbarTitle.text = "@" + userData?.login
+            tvRepository.text = numberFormat(userData?.publicRepos.toString())
+            tvFollower.text = numberFormat(userData?.followers.toString())
+            tvFollowing.text = numberFormat(userData?.following.toString())
+
+            userData?.company.let {
+                if (it.isNullOrEmpty()) {
+                    wrapperCompany.visibility = View.INVISIBLE
+                } else {
+                    wrapperCompany.visibility = View.VISIBLE
+                    tvCompany.text = userData?.company
+                }
+            }
+
+            userData?.location.let {
+                if (it.isNullOrEmpty()) {
+                    wrapperLocation.visibility = View.INVISIBLE
+                } else {
+                    wrapperLocation.visibility = View.VISIBLE
+                    tvLocation.text = userData?.location
+                }
+            }
+
+            userData?.htmlUrl.let {
+                if (it.isNullOrEmpty()) {
+                    wrapperHtmlUrl.visibility = View.INVISIBLE
+                } else {
+                    wrapperHtmlUrl.visibility = View.VISIBLE
+                    tvHtmlUrl.text = userData?.htmlUrl
+                }
+            }
+
         }
 
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBarWrapper.progressBar.visibility =
-            if (isLoading) View.VISIBLE else View.INVISIBLE
+        if (isLoading) {
+            binding.progressBarWrapper.progressBar.visibility =
+                View.VISIBLE
+            binding.mainWrapper.visibility =
+                View.INVISIBLE
+        } else {
+            binding.progressBarWrapper.progressBar.visibility =
+                View.INVISIBLE
+            binding.mainWrapper.visibility =
+                View.VISIBLE
+        }
     }
 
     fun numberFormat(value: String, useSymbol: Boolean = false): String {

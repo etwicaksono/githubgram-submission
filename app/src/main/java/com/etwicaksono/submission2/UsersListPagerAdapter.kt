@@ -3,7 +3,7 @@ package com.etwicaksono.submission2
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class SectionsPagerAdapter(fm: Fragment) : FragmentStateAdapter(fm) {
+class UsersListPagerAdapter(fm: Fragment) : FragmentStateAdapter(fm) {
     override fun getItemCount(): Int {
         return 2
     }

@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.etwicaksono.submission2.databinding.FragmentFollowListBinding
+import com.etwicaksono.submission2.databinding.FragmentUsersListBinding
 
 
 class UsersListFragment(private val type: String) : Fragment() {
 
-    private var _binding: FragmentFollowListBinding? = null
+    private var _binding: FragmentUsersListBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -18,13 +18,11 @@ class UsersListFragment(private val type: String) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFollowListBinding.inflate(inflater, container, false)
+        _binding = FragmentUsersListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.fragmentName.text = type
     }
 }

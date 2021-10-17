@@ -9,7 +9,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserDetailViewModel(username: String) : ViewModel() {
+class UserDetailViewModel(private val username: String) : ViewModel() {
+
+    class Factory(private val username:String):ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return UserDetailViewModel(username) as T
+        }
+    }
 
     private val _userData = MutableLiveData<ResponseUserDetail>()
     val userData: LiveData<ResponseUserDetail> = _userData

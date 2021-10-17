@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.etwicaksono.submission2.databinding.FragmentDetailUserBinding
 import java.text.DecimalFormat
@@ -47,7 +48,9 @@ class UserDetailFragment : Fragment() {
         super.onAttach(context)
         username =
             UserDetailFragmentArgs.fromBundle(arguments as Bundle).username.let { if (it.isEmpty()) "etwicaksono" else it }
-        viewModel = UserDetailViewModel(username)
+
+        val model: UserDetailViewModel by viewModels { UserDetailViewModel.Factory(username) }
+        viewModel = model
     }
 
     private fun setUserData(userData: ResponseUserDetail?) {

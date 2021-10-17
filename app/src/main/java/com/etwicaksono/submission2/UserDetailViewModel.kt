@@ -4,11 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserDetailViewModel : ViewModel() {
+class UserDetailViewModel(username: String) : ViewModel() {
 
     private val _userData = MutableLiveData<ResponseUserDetail>()
     val userData: LiveData<ResponseUserDetail> = _userData
@@ -22,7 +23,7 @@ class UserDetailViewModel : ViewModel() {
     }
 
     init {
-        getUserData("etwicaksono")
+        getUserData(username)
     }
 
     private fun getUserData(username: String) {

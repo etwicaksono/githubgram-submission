@@ -1,23 +1,25 @@
 package com.etwicaksono.submission2
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.etwicaksono.submission2.databinding.FragmentDetailUserBinding
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
-import kotlin.reflect.KProperty
 
 class UserDetailFragment : Fragment() {
 
     private var _binding: FragmentDetailUserBinding? = null
     private val binding get() = _binding!!
-    private val viewModel : UserDetailViewModel by viewModels()
+    private lateinit var username: String
+    private lateinit var viewModel: UserDetailViewModel
 
 
     override fun onCreateView(
@@ -43,6 +45,13 @@ class UserDetailFragment : Fragment() {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        username =
+            UserDetailFragmentArgs.fromBundle(arguments as Bundle).username.let { if (it.isEmpty()) "etwicaksono" else it }
+        viewModel = UserDetailViewModel(username)
+    }
+
     private fun setUserData(userData: ResponseUserDetail?) {
 
         binding.apply {
@@ -50,7 +59,7 @@ class UserDetailFragment : Fragment() {
                 .load(userData?.avatarUrl)
                 .into(imgUser)
 
-            toolbarTitle.text=userData?.login
+            toolbarTitle.text = userData?.login
             tvRepository.text = userData?.publicRepos.let { numberFormat(it.toString()) }
             tvFollower.text = userData?.followers.let { numberFormat(it.toString()) }
             tvFollowing.text = userData?.following.let { numberFormat(it.toString()) }

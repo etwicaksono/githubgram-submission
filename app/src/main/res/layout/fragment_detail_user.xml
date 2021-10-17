@@ -64,71 +64,81 @@
                 android:layout_margin="8dp"
                 tools:src="@tools:sample/avatars" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                app:alignItems="center"
+                app:flexDirection="row"
+                app:flexWrap="wrap"
+                app:justifyContent="space_around">
 
-                <TextView
-                    android:id="@+id/tv_repository"
-                    style="@style/header_text1"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    tools:text="1.234" />
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
-                <TextView
-                    style="@style/body_text2"
+                    <TextView
+                        android:id="@+id/tv_repository"
+                        style="@style/header_text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        tools:text="1.234" />
+
+                    <TextView
+                        style="@style/body_text2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/repositories"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="@string/repositories" />
-            </LinearLayout>
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_follower"
+                        style="@style/header_text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        tools:text="1.234" />
 
-                <TextView
-                    android:id="@+id/tv_follower"
-                    style="@style/header_text1"
+                    <TextView
+                        style="@style/body_text2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/follower"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    tools:text="1.234" />
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
-                <TextView
-                    style="@style/body_text2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="@string/follower" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_following"
+                        style="@style/header_text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        tools:text="1.234" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                    <TextView
+                        style="@style/body_text2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/following"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_following"
-                    style="@style/header_text1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    tools:text="1.234" />
-
-                <TextView
-                    style="@style/body_text2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="@string/following" />
-            </LinearLayout>
+            </com.google.android.flexbox.FlexboxLayout>
 
         </LinearLayout>
     </ScrollView>

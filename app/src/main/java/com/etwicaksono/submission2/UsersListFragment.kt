@@ -77,7 +77,7 @@ class UsersListFragment : Fragment() {
     }
 
     private fun setUsersData(listUser: List<ResponseUserItem>?) {
-        val adapter = listUser?.let { UsersListAdapter(it) }
+        val adapter = listUser?.let { UsersListAdapter(it) }?.apply { notifyDataSetChanged() }
         binding.rvUsers.adapter = adapter
     }
 

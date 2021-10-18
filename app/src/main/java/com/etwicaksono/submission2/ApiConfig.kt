@@ -15,7 +15,7 @@ class ApiConfig {
                     val request = chain.request()
                     val builder = request
                         .newBuilder()
-                        .header("Authorization", "Bearer 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")
+                        .header("Authorization", "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")
                         .method(request.method, request.body)
                     val mutatedRequest = builder.build()
                     val response = chain.proceed(mutatedRequest)

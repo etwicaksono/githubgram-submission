@@ -55,24 +55,13 @@ class UserHomeFragment : Fragment() {
         searchView.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-
-                val model: UsersListViewModel by viewModels { UsersListViewModel.Factory("search") }
-                viewModel = model
-
-                viewModel.searchData.observe(viewLifecycleOwner,
-                    { searchData ->
-                        setUsersData(searchData)
-                        Log.d(TAG, "onSuccess: $searchData")
-                    })
-
-                viewModel.loadingSearch.observe(viewLifecycleOwner,{isLoading->showLoading(isLoading)})
-
-                Toast.makeText(context, "Submited: $query", Toast.LENGTH_SHORT).show()
+                if (query != null) {
+                    viewModel.searchUser(query)
+                }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                Toast.makeText(context, "Changed: $newText", Toast.LENGTH_SHORT).show()
                 return false
             }
 
@@ -104,8 +93,8 @@ class UserHomeFragment : Fragment() {
         }
 
         viewModel.apply {
-            this.listUser.observe(viewLifecycleOwner, { listUser -> setUsersData(listUser) })
-            this.isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
+            listUser.observe(viewLifecycleOwner, { listUser -> setUsersData(listUser) })
+            isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
         }
 
 
@@ -118,9 +107,8 @@ class UserHomeFragment : Fragment() {
     }
 
     private fun setUsersData(listUser: List<ResponseUserItem>?) {
-        val adapter = listUser?.let { UserHomeAdapter(it) }
+        val adapter = listUser?.let { UserHomeAdapter(it) }?.apply { notifyDataSetChanged() }
         binding.rvUsers.adapter = adapter
-        binding.rvUsers.adapter!!.notifyDataSetChanged()
     }
 
     override fun onDestroy() {

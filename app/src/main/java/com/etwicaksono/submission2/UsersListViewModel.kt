@@ -54,11 +54,10 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
             "detail user" -> getUserData(username!!)
             "followers" -> getFollowersData(username!!)
             "following" -> getFollowingData(username!!)
-            "search" -> searchUser(username!!)
         }
     }
 
-    private fun searchUser(username: String) {
+    fun searchUser(username: String) {
         _loadingSearch.value = true
         val client = api.searchUser(username)
         client.enqueue(object : Callback<ResponseSearch> {
@@ -69,7 +68,7 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
                 _loadingSearch.value = false
                 if (response.isSuccessful) {
                     response.body()?.items.let {
-                        if (!it.isNullOrEmpty()) _searchData.postValue(
+                        if (!it.isNullOrEmpty()) _listUsers.postValue(
                             it
                         )
                     }
@@ -106,7 +105,6 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
-
         })
     }
 

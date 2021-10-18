@@ -1,5 +1,9 @@
 package com.etwicaksono.submission2
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -29,10 +33,6 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
 
     private val _userData = MutableLiveData<ResponseUserDetail>()
     val userData: LiveData<ResponseUserDetail> = _userData
-
-    private val _searchData = MutableLiveData<List<ResponseUserItem>>()
-    val searchData: LiveData<List<ResponseUserItem>> = _searchData
-
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -121,18 +121,20 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
                     _following.postValue(response.body())
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
+                    Log.e(TAG, "errorBody: ${response.errorBody()}")
                 }
             }
 
             override fun onFailure(call: Call<List<ResponseUserItem>>, t: Throwable) {
                 _isLoading2.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
+                Log.e(TAG, "cause: ${t.cause.toString()}")
             }
 
         })
     }
 
-    private fun getAllUsers() {
+    fun getAllUsers() {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getAllUsers()
         client.enqueue(object : Callback<List<ResponseUserItem>> {
@@ -178,5 +180,30 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
             }
 
         })
+    }
+
+    fun hasInternet(context: Context): LiveData<Boolean> {
+        val result = MutableLiveData<Boolean>()
+        result.value = false
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network = connectivityManager.activeNetwork ?: return result
+            val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return result
+            when {
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> result.value =
+                    true
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> result.value =
+                    true
+                else -> result.value = false
+            }
+            return result
+        } else {
+            @Suppress("DEPRECATION")
+            val networkInfo = connectivityManager.activeNetworkInfo ?: return result
+            @Suppress("DEPRECATION")
+            result.value= networkInfo.isConnected
+            return result
+        }
     }
 }

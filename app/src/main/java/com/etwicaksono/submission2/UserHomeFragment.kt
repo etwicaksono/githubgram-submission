@@ -14,6 +14,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.etwicaksono.submission2.databinding.FragmentUserHomeBinding
+import kotlinx.coroutines.*
 
 
 class UserHomeFragment : Fragment() {
@@ -54,14 +55,29 @@ class UserHomeFragment : Fragment() {
         searchView.queryHint = resources.getString(R.string.input_username)
         searchView.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
+
+            private var searchJob: Job? = null
+
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) {
-                    viewModel.searchUser(query)
-                }
-                return true
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                searchJob?.cancel()
+                searchJob = coroutineScope.launch {
+                    newText?.let {
+                        delay(500)
+                        if (it.isEmpty()) {
+                            viewModel.getAllUsers()
+                        } else {
+                            viewModel.searchUser(newText)
+                            viewModel.loadingSearch.observe(viewLifecycleOwner,
+                                { isLoading -> showLoading(isLoading) })
+                        }
+                    }
+                }
                 return false
             }
 
@@ -95,9 +111,19 @@ class UserHomeFragment : Fragment() {
         viewModel.apply {
             listUser.observe(viewLifecycleOwner, { listUser -> setUsersData(listUser) })
             isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
+            context?.let {
+                hasInternet(it).observe(viewLifecycleOwner,
+                    { internet -> checkInternet(internet) })
+            }
         }
 
 
+    }
+
+    private fun checkInternet(internet: Boolean) {
+        if (!internet) {
+            Toast.makeText(context, "Internet tidak tersedia", Toast.LENGTH_SHORT).show()
+        }
     }
 
 

@@ -58,13 +58,14 @@ class UsersListViewModel : ViewModel() {
                     }
                 } else {
                     Log.e(TAG, "searchUser onResponse failure: ${response.message()}")
-                    _errorMessage.value = response.message()
+                    _errorMessage.value = "searchUser onResponse failure: ${response.message()}"
                 }
             }
 
             override fun onFailure(call: Call<ResponseSearch>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "searchUser onFailure: ${t.message.toString()}")
+                _errorMessage.value = "searchUser onFailure: ${t.message.toString()}"
             }
 
         })
@@ -83,14 +84,15 @@ class UsersListViewModel : ViewModel() {
                     _followers.postValue(response.body())
                 } else {
                     Log.e(TAG, "getFollowersData onResponse failure: ${response.message()}")
-                    _errorMessage.value = response.message()
+                    _errorMessage.value =
+                        "getFollowersData onResponse failure: ${response.message()}"
                 }
             }
 
             override fun onFailure(call: Call<List<ResponseUserItem>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "getFollowersData onFailure: ${t.message.toString()}")
-                _errorMessage.value = t.message.toString()
+                _errorMessage.value = "getFollowersData onFailure: ${t.message.toString()}"
             }
         })
     }
@@ -109,7 +111,8 @@ class UsersListViewModel : ViewModel() {
                 } else {
                     Log.e(TAG, "getFollowingData onResponse failure: ${response.message()}")
                     Log.e(TAG, "getFollowingData errorBody: ${response.errorBody()}")
-                    _errorMessage.value = response.message()
+                    _errorMessage.value =
+                        "getFollowingData onResponse failure: ${response.message()}"
                 }
             }
 
@@ -117,7 +120,7 @@ class UsersListViewModel : ViewModel() {
                 _isLoading.value = false
                 Log.e(TAG, "getFollowingData onFailure: ${t.message.toString()}")
                 Log.e(TAG, "getFollowingData cause: ${t.cause.toString()}")
-                _errorMessage.value = t.message.toString()
+                _errorMessage.value = "getFollowingData onFailure: ${t.message.toString()}"
             }
 
         })
@@ -136,14 +139,15 @@ class UsersListViewModel : ViewModel() {
                     _listUsers.postValue(response.body())
                 } else {
                     Log.e(TAG, "getAllUsers onResponse failure: ${response.message()}")
-                    _errorMessage.value = response.message()
+                    Log.e(TAG, "getAllUsers onResponse failure: ${response.errorBody()}")
+                    _errorMessage.value = "getAllUsers onResponse failure: ${response.message()}"
                 }
             }
 
             override fun onFailure(call: Call<List<ResponseUserItem>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "getAllUsers onFailure: ${t.message.toString()}")
-                _errorMessage.value = t.message.toString()
+                _errorMessage.value = "getAllUsers onFailure: ${t.message.toString()}"
             }
 
         })
@@ -162,14 +166,14 @@ class UsersListViewModel : ViewModel() {
                     _userData.postValue(response.body())
                 } else {
                     Log.e(TAG, "getUserData onResponse failure: ${response.message()}")
-                    _errorMessage.value = response.message()
+                    _errorMessage.value = "getUserData onResponse failure: ${response.message()}"
                 }
             }
 
             override fun onFailure(call: Call<ResponseUserDetail>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "getUserData onFailure: ${t.message.toString()}")
-                _errorMessage.value = t.message.toString()
+                _errorMessage.value = "getUserData onFailure: ${t.message.toString()}"
             }
 
         })

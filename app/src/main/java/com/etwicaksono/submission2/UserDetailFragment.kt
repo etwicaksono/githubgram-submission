@@ -35,7 +35,7 @@ class UserDetailFragment : Fragment() {
     ): View {
         _binding = FragmentDetailUserBinding.inflate(inflater, container, false)
 
-        val sectionsPagerAdapter = UsersListPagerAdapter(this,username)
+        val sectionsPagerAdapter = UsersListPagerAdapter(this, username)
         binding.viewPager.adapter = sectionsPagerAdapter
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])

@@ -33,7 +33,7 @@ class UserHomeAdapter(private val listUser: List<ResponseUserItem>) :
         holder.binding.itemRowUser.setOnClickListener { view ->
             val toDetailUserFragment =
                 UserHomeFragmentDirections.actionUserListFragmentToDetailUserFragment()
-            toDetailUserFragment.username=listUser[position].login
+            toDetailUserFragment.username = listUser[position].login
             view.findNavController().navigate(toDetailUserFragment)
         }
     }

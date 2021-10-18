@@ -14,12 +14,14 @@ class UsersListAdapter(private val listUser: List<ResponseUserItem>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_row_user,parent,false))
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_row_user, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
-            tvName.text=listUser[position].login
+            tvName.text = listUser[position].login
 
             Glide.with(imgUser.context)
                 .load(listUser[position].avatarUrl)

@@ -45,7 +45,7 @@ class UsersListFragment : Fragment() {
         super.onAttach(context)
         type = UsersListFragmentArgs.fromBundle(arguments as Bundle).type
         username = UsersListFragmentArgs.fromBundle(arguments as Bundle).username
-        val model: UsersListViewModel by viewModels { UsersListViewModel.Factory(type, username) }
+        val model: UsersListViewModel by viewModels()
         viewModel = model
     }
 
@@ -61,17 +61,29 @@ class UsersListFragment : Fragment() {
         }
 
         viewModel.apply {
-            isLoading2.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
+            when (type) {
+                "followers" -> {
+                    viewModel.getFollowersData(username)
+                    followers.observe(viewLifecycleOwner, { listUser ->
+                        setUsersData(listUser)
+                    })
+                }
 
-            if (type == "followers") {
-                followers.observe(viewLifecycleOwner, { listUser ->
-                    setUsersData(listUser)
-                })
-            } else if (type == "following") {
-                following.observe(viewLifecycleOwner, { listUser ->
-                    setUsersData(listUser)
-                })
+                "following" -> {
+                    viewModel.getFollowingData(username)
+                    followings.observe(viewLifecycleOwner, { listUser ->
+                        setUsersData(listUser)
+                    })
+                }
+
+                else -> {
+                    getAllUsers()
+                    listUsers.observe(viewLifecycleOwner, { listUser ->
+                        setUsersData(listUser)
+                    })
+                }
             }
+            isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
         }
 
     }

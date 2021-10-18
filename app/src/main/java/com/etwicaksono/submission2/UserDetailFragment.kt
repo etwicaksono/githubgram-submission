@@ -53,6 +53,7 @@ class UserDetailFragment : Fragment() {
         }
 
         viewModel.apply {
+            viewModel.getUserData(username)
             isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
             userData.observe(viewLifecycleOwner, { userData -> setUserData(userData) })
         }
@@ -63,7 +64,7 @@ class UserDetailFragment : Fragment() {
         username =
             UserDetailFragmentArgs.fromBundle(arguments as Bundle).username
 
-        val model: UsersListViewModel by viewModels { UsersListViewModel.Factory("detail user",username) }
+        val model: UsersListViewModel by viewModels()
         viewModel = model
     }
 

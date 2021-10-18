@@ -39,7 +39,7 @@ class UserHomeFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val model: UsersListViewModel by viewModels { UsersListViewModel.Factory("all") }
+        val model: UsersListViewModel by viewModels()
         viewModel = model
     }
 
@@ -73,7 +73,7 @@ class UserHomeFragment : Fragment() {
                             viewModel.getAllUsers()
                         } else {
                             viewModel.searchUser(newText)
-                            viewModel.loadingSearch.observe(viewLifecycleOwner,
+                            viewModel.isLoading.observe(viewLifecycleOwner,
                                 { isLoading -> showLoading(isLoading) })
                         }
                     }
@@ -109,15 +109,20 @@ class UserHomeFragment : Fragment() {
         }
 
         viewModel.apply {
-            listUser.observe(viewLifecycleOwner, { listUser -> setUsersData(listUser) })
+            listUsers.observe(viewLifecycleOwner, { listUser -> setUsersData(listUser) })
             isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
             context?.let {
                 hasInternet(it).observe(viewLifecycleOwner,
                     { internet -> checkInternet(internet) })
             }
+            errorMessage.observe(viewLifecycleOwner, { error -> showError(error) })
         }
 
 
+    }
+
+    private fun showError(error: String?) {
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
     private fun checkInternet(internet: Boolean) {

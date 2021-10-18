@@ -8,28 +8,20 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
-
-    class Factory(private val type: String, private val username: String? = null) :
-        ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return UsersListViewModel(type, username) as T
-        }
-    }
+class UsersListViewModel : ViewModel() {
 
     private val _listUsers = MutableLiveData<List<ResponseUserItem>>()
-    val listUser: LiveData<List<ResponseUserItem>> = _listUsers
+    val listUsers: LiveData<List<ResponseUserItem>> = _listUsers
 
     private val _followers = MutableLiveData<List<ResponseUserItem>>()
     val followers: LiveData<List<ResponseUserItem>> = _followers
 
-    private val _following = MutableLiveData<List<ResponseUserItem>>()
-    val following: LiveData<List<ResponseUserItem>> = _following
+    private val _followings = MutableLiveData<List<ResponseUserItem>>()
+    val followings: LiveData<List<ResponseUserItem>> = _followings
 
     private val _userData = MutableLiveData<ResponseUserDetail>()
     val userData: LiveData<ResponseUserDetail> = _userData
@@ -37,11 +29,8 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _isLoading2 = MutableLiveData<Boolean>()
-    val isLoading2: LiveData<Boolean> = _isLoading2
-
-    private val _loadingSearch = MutableLiveData<Boolean>()
-    val loadingSearch: LiveData<Boolean> = _loadingSearch
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
 
     companion object {
         private val TAG = UsersListViewModel::class.java.simpleName
@@ -49,23 +38,18 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
     }
 
     init {
-        when (type) {
-            "all" -> getAllUsers()
-            "detail user" -> getUserData(username!!)
-            "followers" -> getFollowersData(username!!)
-            "following" -> getFollowingData(username!!)
-        }
+        getAllUsers()
     }
 
     fun searchUser(username: String) {
-        _loadingSearch.value = true
+        _isLoading.value = true
         val client = api.searchUser(username)
         client.enqueue(object : Callback<ResponseSearch> {
             override fun onResponse(
                 call: Call<ResponseSearch>,
                 response: Response<ResponseSearch>
             ) {
-                _loadingSearch.value = false
+                _isLoading.value = false
                 if (response.isSuccessful) {
                     response.body()?.items.let {
                         if (!it.isNullOrEmpty()) _listUsers.postValue(
@@ -73,19 +57,20 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
                         )
                     }
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    Log.e(TAG, "searchUser onResponse failure: ${response.message()}")
+                    _errorMessage.value = response.message()
                 }
             }
 
             override fun onFailure(call: Call<ResponseSearch>, t: Throwable) {
-                _loadingSearch.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                _isLoading.value = false
+                Log.e(TAG, "searchUser onFailure: ${t.message.toString()}")
             }
 
         })
     }
 
-    private fun getFollowersData(username: String) {
+    fun getFollowersData(username: String) {
         _isLoading.value = true
         val client = api.getUserFollowers(username)
         client.enqueue(object : Callback<List<ResponseUserItem>> {
@@ -97,38 +82,42 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
                 if (response.isSuccessful) {
                     _followers.postValue(response.body())
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    Log.e(TAG, "getFollowersData onResponse failure: ${response.message()}")
+                    _errorMessage.value = response.message()
                 }
             }
 
             override fun onFailure(call: Call<List<ResponseUserItem>>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                Log.e(TAG, "getFollowersData onFailure: ${t.message.toString()}")
+                _errorMessage.value = t.message.toString()
             }
         })
     }
 
-    private fun getFollowingData(username: String) {
-        _isLoading2.value = true
+    fun getFollowingData(username: String) {
+        _isLoading.value = true
         val client = api.getUserFollowing(username)
         client.enqueue(object : Callback<List<ResponseUserItem>> {
             override fun onResponse(
                 call: Call<List<ResponseUserItem>>,
                 response: Response<List<ResponseUserItem>>
             ) {
-                _isLoading2.value = false
+                _isLoading.value = false
                 if (response.isSuccessful) {
-                    _following.postValue(response.body())
+                    _followings.postValue(response.body())
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                    Log.e(TAG, "errorBody: ${response.errorBody()}")
+                    Log.e(TAG, "getFollowingData onResponse failure: ${response.message()}")
+                    Log.e(TAG, "getFollowingData errorBody: ${response.errorBody()}")
+                    _errorMessage.value = response.message()
                 }
             }
 
             override fun onFailure(call: Call<List<ResponseUserItem>>, t: Throwable) {
-                _isLoading2.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-                Log.e(TAG, "cause: ${t.cause.toString()}")
+                _isLoading.value = false
+                Log.e(TAG, "getFollowingData onFailure: ${t.message.toString()}")
+                Log.e(TAG, "getFollowingData cause: ${t.cause.toString()}")
+                _errorMessage.value = t.message.toString()
             }
 
         })
@@ -146,19 +135,21 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
                 if (response.isSuccessful) {
                     _listUsers.postValue(response.body())
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    Log.e(TAG, "getAllUsers onResponse failure: ${response.message()}")
+                    _errorMessage.value = response.message()
                 }
             }
 
             override fun onFailure(call: Call<List<ResponseUserItem>>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                Log.e(TAG, "getAllUsers onFailure: ${t.message.toString()}")
+                _errorMessage.value = t.message.toString()
             }
 
         })
     }
 
-    private fun getUserData(username: String) {
+    fun getUserData(username: String) {
         _isLoading.value = true
         val client = api.getUserDetail(username)
         client.enqueue(object : Callback<ResponseUserDetail> {
@@ -170,13 +161,15 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
                 if (response.isSuccessful) {
                     _userData.postValue(response.body())
                 } else {
-                    Log.e(TAG, "onFailue: ${response.message()}")
+                    Log.e(TAG, "getUserData onResponse failure: ${response.message()}")
+                    _errorMessage.value = response.message()
                 }
             }
 
             override fun onFailure(call: Call<ResponseUserDetail>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                Log.e(TAG, "getUserData onFailure: ${t.message.toString()}")
+                _errorMessage.value = t.message.toString()
             }
 
         })
@@ -202,7 +195,7 @@ class UsersListViewModel(type: String, username: String? = null) : ViewModel() {
             @Suppress("DEPRECATION")
             val networkInfo = connectivityManager.activeNetworkInfo ?: return result
             @Suppress("DEPRECATION")
-            result.value= networkInfo.isConnected
+            result.value = networkInfo.isConnected
             return result
         }
     }

@@ -76,6 +76,7 @@ class UserDetailFragment : Fragment() {
                 .into(imgUser)
 
             toolbarTitle.text = "@" + userData?.login
+            tvName.text = userData?.name
             tvRepository.text = numberFormat(userData?.publicRepos.toString())
             tvFollower.text = numberFormat(userData?.followers.toString())
             tvFollowing.text = numberFormat(userData?.following.toString())

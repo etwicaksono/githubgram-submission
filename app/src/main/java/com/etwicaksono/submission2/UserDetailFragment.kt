@@ -116,12 +116,21 @@ class UserDetailFragment : Fragment() {
         if (isLoading) {
             binding.progressBarWrapper.progressBar.visibility =
                 View.VISIBLE
-            binding.mainWrapper.visibility =
+            binding.infoWrapper.visibility =
                 View.INVISIBLE
+            binding.tabs.visibility =
+                View.INVISIBLE
+            binding.viewPager.visibility =
+                View.INVISIBLE
+
         } else {
             binding.progressBarWrapper.progressBar.visibility =
                 View.INVISIBLE
-            binding.mainWrapper.visibility =
+            binding.infoWrapper.visibility =
+                View.VISIBLE
+            binding.tabs.visibility =
+                View.VISIBLE
+            binding.viewPager.visibility =
                 View.VISIBLE
         }
     }

@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.etwicaksono.githubgram.api.ApiConfig
-import com.etwicaksono.githubgram.helper.UsersDiffCallback
+import com.etwicaksono.githubgram.responses.ResponseSearchUser
 import com.etwicaksono.githubgram.responses.ResponseUserDetail
 import com.etwicaksono.githubgram.responses.ResponseUserItem
 import retrofit2.Call
@@ -43,16 +43,16 @@ class UsersListViewModel : ViewModel() {
     fun searchUser(username: String) {
         _isLoading.value = true
         val client = api.searchUser(username)
-        client.enqueue(object : Callback<List<ResponseUserItem>> {
+        client.enqueue(object : Callback<ResponseSearchUser> {
             override fun onResponse(
-                call: Call<List<ResponseUserItem>>,
-                response: Response<List<ResponseUserItem>>,
+                call: Call<ResponseSearchUser>,
+                response: Response<ResponseSearchUser>,
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        if (!it.isNullOrEmpty()) _listUsers.postValue(
-                            it
+                        _listUsers.postValue(
+                            it.items
                         )
                     }
                 } else {
@@ -61,7 +61,7 @@ class UsersListViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<List<ResponseUserItem>>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseSearchUser>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "searchUser onFailure: ${t.message.toString()}")
                 _errorMessage.value = "searchUser onFailure: ${t.message.toString()}"

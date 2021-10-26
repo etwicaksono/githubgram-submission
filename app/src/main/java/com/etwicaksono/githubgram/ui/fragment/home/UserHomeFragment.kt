@@ -15,8 +15,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.etwicaksono.githubgram.R
 import com.etwicaksono.githubgram.databinding.FragmentUserHomeBinding
-import com.etwicaksono.githubgram.helper.UsersDiffCallback
-import com.etwicaksono.githubgram.responses.ResponseUserItem
 import com.etwicaksono.githubgram.ui.fragment.userlist.UsersListViewModel
 import kotlinx.coroutines.*
 
@@ -27,6 +25,7 @@ class UserHomeFragment : Fragment() {
     private val binding get() = _binding
 
     private lateinit var viewModel: UsersListViewModel
+    private lateinit var mHomeAdapter: UserHomeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -102,14 +101,19 @@ class UserHomeFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(context)
         val itemDecoration = DividerItemDecoration(context, layoutManager.orientation)
-
+        mHomeAdapter = UserHomeAdapter()
         binding?.rvUsers?.apply {
+            adapter = mHomeAdapter
             this.layoutManager = layoutManager
             addItemDecoration(itemDecoration)
         }
 
         viewModel.apply {
-            listUsers.observe(viewLifecycleOwner, { listUser -> setUsersData(listUser) })
+            listUsers.observe(viewLifecycleOwner, { listUser ->
+                if (listUser != null) {
+                    mHomeAdapter.setListUsersData(listUser)
+                }
+            })
             isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
             context?.let {
                 hasInternet(it).observe(viewLifecycleOwner,
@@ -117,8 +121,6 @@ class UserHomeFragment : Fragment() {
             }
             errorMessage.observe(viewLifecycleOwner, { error -> showError(error) })
         }
-
-
     }
 
     private fun showError(error: String?) {
@@ -136,12 +138,6 @@ class UserHomeFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         binding?.progressBarWrapper?.progressBar?.visibility =
             if (isLoading) View.VISIBLE else View.INVISIBLE
-    }
-
-    private fun setUsersData(listUser: List<ResponseUserItem>?) {
-//        val diffCallback=UsersDiffCallback
-        val adapter = listUser?.let { UserHomeAdapter(it) }?.apply { notifyDataSetChanged() }
-        binding?.rvUsers?.adapter = adapter
     }
 
     override fun onDestroy() {

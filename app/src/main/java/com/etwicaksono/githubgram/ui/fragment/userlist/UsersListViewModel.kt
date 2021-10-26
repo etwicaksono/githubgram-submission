@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.etwicaksono.githubgram.api.ApiConfig
+import com.etwicaksono.githubgram.helper.UsersDiffCallback
 import com.etwicaksono.githubgram.responses.ResponseUserDetail
 import com.etwicaksono.githubgram.responses.ResponseUserItem
 import retrofit2.Call

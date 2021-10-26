@@ -1,7 +1,6 @@
 package com.etwicaksono.githubgram.ui.fragment.userlist
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.etwicaksono.githubgram.R
 import com.etwicaksono.githubgram.databinding.FragmentUsersListBinding
-import com.etwicaksono.githubgram.responses.ResponseUserItem
 
 
 class UsersListFragment : Fragment() {
@@ -23,6 +21,7 @@ class UsersListFragment : Fragment() {
     private lateinit var type: String
     private lateinit var username: String
     private lateinit var viewModel: UsersListViewModel
+    private lateinit var mUsersListAdapter: UsersListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,37 +51,41 @@ class UsersListFragment : Fragment() {
             addItemDecoration(itemDecoration)
         }
 
+        mUsersListAdapter = UsersListAdapter()
+
         viewModel.apply {
             when (type) {
                 getString(R.string.follower) -> {
                     viewModel.getFollowersData(username)
                     followers.observe(viewLifecycleOwner, { listUser ->
-                        setUsersData(listUser)
+                        if (listUser != null) {
+                            mUsersListAdapter.setListUsersData(listUser)
+                        }
                     })
                 }
 
                 getString(R.string.following) -> {
                     viewModel.getFollowingData(username)
                     followings.observe(viewLifecycleOwner, { listUser ->
-                        setUsersData(listUser)
+                        if (listUser != null) {
+                            mUsersListAdapter.setListUsersData(listUser)
+                        }
                     })
                 }
 
                 else -> {
                     getAllUsers()
                     listUsers.observe(viewLifecycleOwner, { listUser ->
-                        setUsersData(listUser)
+                        if (listUser != null) {
+                            mUsersListAdapter.setListUsersData(listUser)
+                        }
                     })
                 }
             }
+            binding?.rvUsers?.adapter = mUsersListAdapter
             isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
         }
 
-    }
-
-    private fun setUsersData(listUser: List<ResponseUserItem>?) {
-        val adapter = listUser?.let { UsersListAdapter(it) }?.apply { notifyDataSetChanged() }
-        binding?.rvUsers?.adapter = adapter
     }
 
     private fun showLoading(isLoading: Boolean) {

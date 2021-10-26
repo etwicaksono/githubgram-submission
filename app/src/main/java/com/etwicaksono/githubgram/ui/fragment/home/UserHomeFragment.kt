@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.etwicaksono.githubgram.R
 import com.etwicaksono.githubgram.databinding.FragmentUserHomeBinding
+import com.etwicaksono.githubgram.helper.UsersDiffCallback
 import com.etwicaksono.githubgram.responses.ResponseUserItem
 import com.etwicaksono.githubgram.ui.fragment.userlist.UsersListViewModel
 import kotlinx.coroutines.*
@@ -138,6 +139,7 @@ class UserHomeFragment : Fragment() {
     }
 
     private fun setUsersData(listUser: List<ResponseUserItem>?) {
+//        val diffCallback=UsersDiffCallback
         val adapter = listUser?.let { UserHomeAdapter(it) }?.apply { notifyDataSetChanged() }
         binding?.rvUsers?.adapter = adapter
     }

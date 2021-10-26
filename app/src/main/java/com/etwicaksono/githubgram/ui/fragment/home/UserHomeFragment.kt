@@ -27,14 +27,10 @@ class UserHomeFragment : Fragment() {
 
     private lateinit var viewModel: UsersListViewModel
 
-    companion object {
-        private val TAG = UserHomeFragment::class.java.simpleName
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentUserHomeBinding.inflate(inflater, container, false)
         return binding!!.root
@@ -130,7 +126,8 @@ class UserHomeFragment : Fragment() {
 
     private fun checkInternet(internet: Boolean) {
         if (!internet) {
-            Toast.makeText(context, getString(R.string.internet_unavailable), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.internet_unavailable), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -150,5 +147,9 @@ class UserHomeFragment : Fragment() {
         _binding = null
     }
 
+
+    companion object {
+        private val TAG = UserHomeFragment::class.java.simpleName
+    }
 
 }

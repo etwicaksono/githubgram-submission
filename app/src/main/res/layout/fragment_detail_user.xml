@@ -151,78 +151,34 @@
             android:textStyle="bold"
             tools:text="Tom Preston-Werner" />
 
-        <LinearLayout
-            android:id="@+id/wrapper_html_url"
+        <TextView
+            android:id="@+id/tv_html_url"
+            style="@style/body_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="8dp"
+            app:drawableStartCompat="@drawable/ic_logo_github_white_24"
+            tools:text="https://github.com/etwicaksono" />
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:contentDescription="@string/image"
-                android:src="@drawable/ic_logo_github_white" />
-
-            <TextView
-                android:id="@+id/tv_html_url"
-                style="@style/body_text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                tools:text="https://github.com/etwicaksono" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/wrapper_location"
+        <TextView
+            android:id="@+id/tv_location"
+            style="@style/body_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="8dp"
+            app:drawableStartCompat="@drawable/ic_location_white"
+            tools:text="San Francisco" />
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:contentDescription="@string/image"
-                android:src="@drawable/ic_location_white" />
-
-            <TextView
-                android:id="@+id/tv_location"
-                style="@style/body_text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
-                android:layout_marginStart="8dp"
-                tools:text="San Francisco" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/wrapper_company"
+        <TextView
+            android:id="@+id/tv_company"
+            style="@style/body_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:contentDescription="@string/image"
-                android:src="@drawable/ic_company_white" />
-
-            <TextView
-                android:id="@+id/tv_company"
-                style="@style/body_text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                tools:text="\@chatterbugapp, \@redwoodjs, \@preston-werner-ventures" />
-        </LinearLayout>
+            android:drawablePadding="8dp"
+            app:drawableStartCompat="@drawable/ic_company_white"
+            tools:text="\@chatterbugapp, \@redwoodjs, \@preston-werner-ventures" />
 
 
     </LinearLayout>

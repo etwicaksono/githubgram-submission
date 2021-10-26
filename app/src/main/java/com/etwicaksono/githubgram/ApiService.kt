@@ -1,4 +1,4 @@
-package com.etwicaksono.submission2
+package com.etwicaksono.githubgram
 
 import retrofit2.Call
 import retrofit2.http.GET

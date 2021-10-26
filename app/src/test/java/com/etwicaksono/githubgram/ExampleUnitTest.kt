@@ -1,4 +1,4 @@
-package com.etwicaksono.submission2
+package com.etwicaksono.githubgram
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

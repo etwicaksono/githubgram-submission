@@ -1,4 +1,4 @@
-package com.etwicaksono.submission2
+package com.etwicaksono.githubgram
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry

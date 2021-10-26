@@ -1,4 +1,4 @@
-package com.etwicaksono.submission2
+package com.etwicaksono.githubgram
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

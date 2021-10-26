@@ -1,4 +1,4 @@
-package com.etwicaksono.submission2
+package com.etwicaksono.githubgram
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,7 +15,7 @@ class ApiConfig {
                     val request = chain.request()
                     val builder = request
                         .newBuilder()
-                        .header("Authorization", "")
+                        .header("Authorization", "Bearer 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")
                         .method(request.method, request.body)
                     val mutatedRequest = builder.build()
                     val response = chain.proceed(mutatedRequest)

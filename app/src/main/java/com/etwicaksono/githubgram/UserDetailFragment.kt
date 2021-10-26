@@ -1,4 +1,4 @@
-package com.etwicaksono.submission2
+package com.etwicaksono.githubgram
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,7 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.etwicaksono.submission2.databinding.FragmentDetailUserBinding
+import com.etwicaksono.githubgram.databinding.FragmentDetailUserBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.DecimalFormat
 import java.text.NumberFormat

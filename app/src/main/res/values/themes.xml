@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Submission2" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Githubgram" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/grey_1</item>
         <item name="colorPrimaryVariant">@color/grey_2</item>
@@ -15,19 +15,19 @@
     </style>
 
 
-    <style name="header_text1" parent="Theme.Submission2">
+    <style name="header_text1" parent="Theme.Githubgram">
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">23sp</item>
     </style>
 
 
-    <style name="body_text2" parent="Theme.Submission2">
+    <style name="body_text2" parent="Theme.Githubgram">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="body_text3" parent="Theme.Submission2">
+    <style name="body_text3" parent="Theme.Githubgram">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">23sp</item>
     </style>
@@ -60,7 +60,7 @@
         <item name="android:textStyle">italic</item>
     </style>
 
-    <style name="ContainerTheme" parent="Theme.Submission2">
+    <style name="ContainerTheme" parent="Theme.Githubgram">
         <item name="android:background">@color/grey_2</item>
     </style>
 

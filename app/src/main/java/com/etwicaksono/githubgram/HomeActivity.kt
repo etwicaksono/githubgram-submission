@@ -1,8 +1,8 @@
-package com.etwicaksono.submission2
+package com.etwicaksono.githubgram
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.etwicaksono.submission2.databinding.ActivityHomeBinding
+import com.etwicaksono.githubgram.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
 

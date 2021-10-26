@@ -1,4 +1,4 @@
-package com.etwicaksono.submission2
+package com.etwicaksono.githubgram
 
 import android.app.SearchManager
 import android.content.Context
@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.etwicaksono.submission2.databinding.FragmentUserHomeBinding
+import com.etwicaksono.githubgram.databinding.FragmentUserHomeBinding
 import kotlinx.coroutines.*
 
 

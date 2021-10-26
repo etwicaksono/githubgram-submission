@@ -1,11 +1,11 @@
-package com.etwicaksono.submission2
+package com.etwicaksono.githubgram
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.etwicaksono.submission2.databinding.ItemRowUserBinding
+import com.etwicaksono.githubgram.databinding.ItemRowUserBinding
 
 class UsersListAdapter(private val listUser: List<ResponseUserItem>) :
     RecyclerView.Adapter<UsersListAdapter.ViewHolder>() {

@@ -1,4 +1,4 @@
-package com.etwicaksono.githubgram
+package com.etwicaksono.githubgram.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

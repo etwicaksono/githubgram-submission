@@ -1,4 +1,4 @@
-package com.etwicaksono.githubgram
+package com.etwicaksono.githubgram.ui.fragment.userlist
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -8,6 +8,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.etwicaksono.githubgram.api.ApiConfig
+import com.etwicaksono.githubgram.responses.ResponseUserDetail
+import com.etwicaksono.githubgram.responses.ResponseUserItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,11 +35,6 @@ class UsersListViewModel : ViewModel() {
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    companion object {
-        private val TAG = UsersListViewModel::class.java.simpleName
-        private val api = ApiConfig.getApiService()
-    }
-
     init {
         getAllUsers()
     }
@@ -44,14 +42,14 @@ class UsersListViewModel : ViewModel() {
     fun searchUser(username: String) {
         _isLoading.value = true
         val client = api.searchUser(username)
-        client.enqueue(object : Callback<ResponseSearch> {
+        client.enqueue(object : Callback<List<ResponseUserItem>> {
             override fun onResponse(
-                call: Call<ResponseSearch>,
-                response: Response<ResponseSearch>
+                call: Call<List<ResponseUserItem>>,
+                response: Response<List<ResponseUserItem>>,
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    response.body()?.items.let {
+                    response.body()?.let {
                         if (!it.isNullOrEmpty()) _listUsers.postValue(
                             it
                         )
@@ -62,7 +60,7 @@ class UsersListViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<ResponseSearch>, t: Throwable) {
+            override fun onFailure(call: Call<List<ResponseUserItem>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "searchUser onFailure: ${t.message.toString()}")
                 _errorMessage.value = "searchUser onFailure: ${t.message.toString()}"
@@ -77,7 +75,7 @@ class UsersListViewModel : ViewModel() {
         client.enqueue(object : Callback<List<ResponseUserItem>> {
             override fun onResponse(
                 call: Call<List<ResponseUserItem>>,
-                response: Response<List<ResponseUserItem>>
+                response: Response<List<ResponseUserItem>>,
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -103,7 +101,7 @@ class UsersListViewModel : ViewModel() {
         client.enqueue(object : Callback<List<ResponseUserItem>> {
             override fun onResponse(
                 call: Call<List<ResponseUserItem>>,
-                response: Response<List<ResponseUserItem>>
+                response: Response<List<ResponseUserItem>>,
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -132,7 +130,7 @@ class UsersListViewModel : ViewModel() {
         client.enqueue(object : Callback<List<ResponseUserItem>> {
             override fun onResponse(
                 call: Call<List<ResponseUserItem>>,
-                response: Response<List<ResponseUserItem>>
+                response: Response<List<ResponseUserItem>>,
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -159,7 +157,7 @@ class UsersListViewModel : ViewModel() {
         client.enqueue(object : Callback<ResponseUserDetail> {
             override fun onResponse(
                 call: Call<ResponseUserDetail>,
-                response: Response<ResponseUserDetail>
+                response: Response<ResponseUserDetail>,
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -196,11 +194,14 @@ class UsersListViewModel : ViewModel() {
             }
             return result
         } else {
-            @Suppress("DEPRECATION")
             val networkInfo = connectivityManager.activeNetworkInfo ?: return result
-            @Suppress("DEPRECATION")
             result.value = networkInfo.isConnected
             return result
         }
+    }
+
+    companion object {
+        private val TAG = UsersListViewModel::class.java.simpleName
+        private val api = ApiConfig.getApiService()
     }
 }

@@ -1,14 +1,17 @@
-package com.etwicaksono.githubgram
+package com.etwicaksono.githubgram.ui.fragment.home
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.etwicaksono.githubgram.R
 import com.etwicaksono.githubgram.databinding.ItemRowUserBinding
+import com.etwicaksono.githubgram.responses.ResponseUserItem
 
-class UsersListAdapter(private val listUser: List<ResponseUserItem>) :
-    RecyclerView.Adapter<UsersListAdapter.ViewHolder>() {
+class UserHomeAdapter(private val listUser: List<ResponseUserItem>) :
+    RecyclerView.Adapter<UserHomeAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemRowUserBinding.bind(view)
     }
@@ -19,6 +22,7 @@ class UsersListAdapter(private val listUser: List<ResponseUserItem>) :
         )
     }
 
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
             tvName.text = listUser[position].login
@@ -26,6 +30,13 @@ class UsersListAdapter(private val listUser: List<ResponseUserItem>) :
             Glide.with(imgUser.context)
                 .load(listUser[position].avatarUrl)
                 .into(imgUser)
+        }
+
+        holder.binding.itemRowUser.setOnClickListener { view ->
+            val toDetailUserFragment =
+                UserHomeFragmentDirections.actionUserListFragmentToDetailUserFragment()
+            toDetailUserFragment.username = listUser[position].login
+            view.findNavController().navigate(toDetailUserFragment)
         }
     }
 

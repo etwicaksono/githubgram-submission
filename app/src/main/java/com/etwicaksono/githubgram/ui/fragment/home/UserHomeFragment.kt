@@ -1,4 +1,4 @@
-package com.etwicaksono.githubgram
+package com.etwicaksono.githubgram.ui.fragment.home
 
 import android.app.SearchManager
 import android.content.Context
@@ -13,14 +13,17 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.etwicaksono.githubgram.R
 import com.etwicaksono.githubgram.databinding.FragmentUserHomeBinding
+import com.etwicaksono.githubgram.responses.ResponseUserItem
+import com.etwicaksono.githubgram.ui.fragment.userlist.UsersListViewModel
 import kotlinx.coroutines.*
 
 
 class UserHomeFragment : Fragment() {
 
     private var _binding: FragmentUserHomeBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private lateinit var viewModel: UsersListViewModel
 
@@ -34,7 +37,7 @@ class UserHomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentUserHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onAttach(context: Context) {
@@ -46,10 +49,10 @@ class UserHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbar.inflateMenu(R.menu.menu_main)
+        binding?.toolbar?.inflateMenu(R.menu.menu_main)
         val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView =
-            binding.toolbar.menu.findItem(R.id.search).actionView as androidx.appcompat.widget.SearchView
+            binding?.toolbar?.menu?.findItem(R.id.search)?.actionView as androidx.appcompat.widget.SearchView
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
         searchView.queryHint = resources.getString(R.string.input_username)
@@ -83,7 +86,7 @@ class UserHomeFragment : Fragment() {
 
         })
 
-        binding.toolbar.apply {
+        binding?.toolbar?.apply {
             this.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.search -> {
@@ -103,7 +106,7 @@ class UserHomeFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val itemDecoration = DividerItemDecoration(context, layoutManager.orientation)
 
-        binding.rvUsers.apply {
+        binding?.rvUsers?.apply {
             this.layoutManager = layoutManager
             addItemDecoration(itemDecoration)
         }
@@ -127,19 +130,19 @@ class UserHomeFragment : Fragment() {
 
     private fun checkInternet(internet: Boolean) {
         if (!internet) {
-            Toast.makeText(context, "Internet tidak tersedia", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.internet_unavailable), Toast.LENGTH_SHORT).show()
         }
     }
 
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBarWrapper.progressBar.visibility =
+        binding?.progressBarWrapper?.progressBar?.visibility =
             if (isLoading) View.VISIBLE else View.INVISIBLE
     }
 
     private fun setUsersData(listUser: List<ResponseUserItem>?) {
         val adapter = listUser?.let { UserHomeAdapter(it) }?.apply { notifyDataSetChanged() }
-        binding.rvUsers.adapter = adapter
+        binding?.rvUsers?.adapter = adapter
     }
 
     override fun onDestroy() {

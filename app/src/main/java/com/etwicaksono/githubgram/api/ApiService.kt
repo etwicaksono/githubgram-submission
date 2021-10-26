@@ -1,5 +1,7 @@
-package com.etwicaksono.githubgram
+package com.etwicaksono.githubgram.api
 
+import com.etwicaksono.githubgram.responses.ResponseUserDetail
+import com.etwicaksono.githubgram.responses.ResponseUserItem
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,7 +14,7 @@ interface ApiService {
     @GET("search/users")
     fun searchUser(
         @Query("q") q: String
-    ): Call<ResponseSearch>
+    ): Call<List<ResponseUserItem>>
 
     @GET("users/{username}")
     fun getUserDetail(@Path("username") username: String): Call<ResponseUserDetail>

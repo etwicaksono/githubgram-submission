@@ -1,6 +1,7 @@
-package com.etwicaksono.githubgram
+package com.etwicaksono.githubgram.ui.fragment.userlist
 
 import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,36 +10,27 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.etwicaksono.githubgram.R
 import com.etwicaksono.githubgram.databinding.FragmentUsersListBinding
+import com.etwicaksono.githubgram.responses.ResponseUserItem
 
 
 class UsersListFragment : Fragment() {
 
     private var _binding: FragmentUsersListBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private lateinit var type: String
     private lateinit var username: String
     private lateinit var viewModel: UsersListViewModel
 
-    companion object {
-        @JvmStatic
-        fun newInstance(type: String, username: String): UsersListFragment =
-            UsersListFragment().apply {
-                arguments = Bundle().apply {
-                    putString("type", type)
-                    putString("username", username)
-                }
-            }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentUsersListBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onAttach(context: Context) {
@@ -55,21 +47,21 @@ class UsersListFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val itemDecoration = DividerItemDecoration(context, layoutManager.orientation)
 
-        binding.rvUsers.apply {
+        binding?.rvUsers?.apply {
             this.layoutManager = layoutManager
             addItemDecoration(itemDecoration)
         }
 
         viewModel.apply {
             when (type) {
-                "followers" -> {
+                getString(R.string.follower) -> {
                     viewModel.getFollowersData(username)
                     followers.observe(viewLifecycleOwner, { listUser ->
                         setUsersData(listUser)
                     })
                 }
 
-                "following" -> {
+                getString(R.string.following) -> {
                     viewModel.getFollowingData(username)
                     followings.observe(viewLifecycleOwner, { listUser ->
                         setUsersData(listUser)
@@ -90,15 +82,15 @@ class UsersListFragment : Fragment() {
 
     private fun setUsersData(listUser: List<ResponseUserItem>?) {
         val adapter = listUser?.let { UsersListAdapter(it) }?.apply { notifyDataSetChanged() }
-        binding.rvUsers.adapter = adapter
+        binding?.rvUsers?.adapter = adapter
     }
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
-            binding.progressBarWrapper.progressBar.visibility =
+            binding?.progressBarWrapper?.progressBar?.visibility =
                 View.VISIBLE
         } else {
-            binding.progressBarWrapper.progressBar.visibility =
+            binding?.progressBarWrapper?.progressBar?.visibility =
                 View.INVISIBLE
         }
     }
@@ -106,5 +98,17 @@ class UsersListFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+
+    companion object {
+        @JvmStatic
+        fun newInstance(type: String, username: String): UsersListFragment =
+            UsersListFragment().apply {
+                arguments = Bundle().apply {
+                    putString("type", type)
+                    putString("username", username)
+                }
+            }
     }
 }

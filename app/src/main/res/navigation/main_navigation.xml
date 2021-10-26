@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/userListFragment"
-        android:name="com.etwicaksono.githubgram.UserHomeFragment"
+        android:name="com.etwicaksono.githubgram.ui.fragment.home.UserHomeFragment"
         android:label="fragment_user_list"
         tools:layout="@layout/fragment_user_home">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailUserFragment"
-        android:name="com.etwicaksono.githubgram.UserDetailFragment"
+        android:name="com.etwicaksono.githubgram.ui.fragment.UserDetailFragment"
         android:label="fragment_detail_user"
         tools:layout="@layout/fragment_detail_user">
         <argument
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/usersListFragment"
-        android:name="com.etwicaksono.githubgram.UsersListFragment"
+        android:name="com.etwicaksono.githubgram.ui.fragment.userlist.UsersListFragment"
         android:label="fragment_users_list"
         tools:layout="@layout/fragment_users_list">
         <argument

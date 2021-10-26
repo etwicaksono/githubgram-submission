@@ -1,4 +1,4 @@
-package com.etwicaksono.githubgram
+package com.etwicaksono.githubgram.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,11 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.etwicaksono.githubgram.R
 import com.etwicaksono.githubgram.databinding.FragmentDetailUserBinding
+import com.etwicaksono.githubgram.responses.ResponseUserDetail
+import com.etwicaksono.githubgram.ui.fragment.userlist.UsersListPagerAdapter
+import com.etwicaksono.githubgram.ui.fragment.userlist.UsersListViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -18,15 +22,9 @@ import java.util.*
 class UserDetailFragment : Fragment() {
 
     private var _binding: FragmentDetailUserBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
     private lateinit var username: String
     private lateinit var viewModel: UsersListViewModel
-
-    companion object {
-        @StringRes
-        private val TAB_TITLES = intArrayOf(R.string.tab_text_1, R.string.tab_text_2)
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,21 +32,21 @@ class UserDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailUserBinding.inflate(inflater, container, false)
-
-        val sectionsPagerAdapter = UsersListPagerAdapter(this, username)
-        binding.viewPager.adapter = sectionsPagerAdapter
-        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
-            tab.text = resources.getString(TAB_TITLES[position])
-        }.attach()
-
-        return binding.root
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sectionsPagerAdapter = UsersListPagerAdapter(this, username)
+        binding?.viewPager?.adapter = sectionsPagerAdapter
+        binding?.let {
+            TabLayoutMediator(it.tabs, it.viewPager) { tab, position ->
+                tab.text = resources.getString(TAB_TITLES[position])
+            }.attach()
+        }
 
-        binding.btnBack.setOnClickListener {
+        binding?.btnBack?.setOnClickListener {
             activity?.onBackPressed()
         }
 
@@ -68,9 +66,14 @@ class UserDetailFragment : Fragment() {
         viewModel = model
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     private fun setUserData(userData: ResponseUserDetail?) {
 
-        binding.apply {
+        binding?.apply {
             Glide.with(imgUser.context)
                 .load(userData?.avatarUrl)
                 .into(imgUser)
@@ -83,27 +86,27 @@ class UserDetailFragment : Fragment() {
 
             userData?.company.let {
                 if (it.isNullOrEmpty()) {
-                    wrapperCompany.visibility = View.INVISIBLE
+                    tvCompany.visibility = View.INVISIBLE
                 } else {
-                    wrapperCompany.visibility = View.VISIBLE
+                    tvCompany.visibility = View.VISIBLE
                     tvCompany.text = userData?.company
                 }
             }
 
             userData?.location.let {
                 if (it.isNullOrEmpty()) {
-                    wrapperLocation.visibility = View.INVISIBLE
+                    tvLocation.visibility = View.INVISIBLE
                 } else {
-                    wrapperLocation.visibility = View.VISIBLE
+                    tvLocation.visibility = View.VISIBLE
                     tvLocation.text = userData?.location
                 }
             }
 
             userData?.htmlUrl.let {
                 if (it.isNullOrEmpty()) {
-                    wrapperHtmlUrl.visibility = View.INVISIBLE
+                    tvHtmlUrl.visibility = View.INVISIBLE
                 } else {
-                    wrapperHtmlUrl.visibility = View.VISIBLE
+                    tvHtmlUrl.visibility = View.VISIBLE
                     tvHtmlUrl.text = userData?.htmlUrl
                 }
             }
@@ -114,24 +117,28 @@ class UserDetailFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
-            binding.progressBarWrapper.progressBar.visibility =
-                View.VISIBLE
-            binding.infoWrapper.visibility =
-                View.INVISIBLE
-            binding.tabs.visibility =
-                View.INVISIBLE
-            binding.viewPager.visibility =
-                View.INVISIBLE
+            binding?.apply {
+                progressBarWrapper.progressBar.visibility =
+                    View.VISIBLE
+                infoWrapper.visibility =
+                    View.INVISIBLE
+                tabs.visibility =
+                    View.INVISIBLE
+                viewPager.visibility =
+                    View.INVISIBLE
+            }
 
         } else {
-            binding.progressBarWrapper.progressBar.visibility =
-                View.INVISIBLE
-            binding.infoWrapper.visibility =
-                View.VISIBLE
-            binding.tabs.visibility =
-                View.VISIBLE
-            binding.viewPager.visibility =
-                View.VISIBLE
+            binding?.apply {
+                progressBarWrapper.progressBar.visibility =
+                    View.INVISIBLE
+                infoWrapper.visibility =
+                    View.VISIBLE
+                tabs.visibility =
+                    View.VISIBLE
+                viewPager.visibility =
+                    View.VISIBLE
+            }
         }
     }
 
@@ -151,4 +158,12 @@ class UserDetailFragment : Fragment() {
         return result.toString()
 
     }
+
+
+
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(R.string.tab_text_1, R.string.tab_text_2)
+    }
+
 }

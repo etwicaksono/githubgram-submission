@@ -1,5 +1,6 @@
-package com.etwicaksono.githubgram
+package com.etwicaksono.githubgram.api
 
+import com.etwicaksono.githubgram.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

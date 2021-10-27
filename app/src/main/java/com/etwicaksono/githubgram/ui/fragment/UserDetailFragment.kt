@@ -38,10 +38,10 @@ class UserDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
+            this@UserDetailFragment.setHasOptionsMenu(true)
             (activity as AppCompatActivity).setSupportActionBar(toolbar)
             val actionBar = (activity as AppCompatActivity).supportActionBar
             actionBar?.setDisplayHomeAsUpEnabled(true)
-//            actionBar?.setDisplayShowHomeEnabled(true)
             collapsingToolbar.title = getString(R.string.app_name)
             toolbarTextAppearence()
 
@@ -59,6 +59,15 @@ class UserDetailFragment : Fragment() {
             isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
             userData.observe(viewLifecycleOwner, { userData -> setUserData(userData) })
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                activity?.onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun toolbarTextAppearence() {

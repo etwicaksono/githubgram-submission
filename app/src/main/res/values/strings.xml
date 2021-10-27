@@ -13,4 +13,6 @@
     <string name="tab_text_2">Following</string>
     <string name="internet_unavailable">Internet unavailable</string>
     <string name="users_not_found">Users not found</string>
+    <string name="not_have_followers">This user doesn\'t have any followers</string>
+    <string name="not_have_following">This user doesn\'t follow anyone</string>
 </resources>

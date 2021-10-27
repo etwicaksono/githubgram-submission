@@ -62,7 +62,10 @@ class UsersListFragment : Fragment() {
                             if (listUser.isNotEmpty()) {
                                 binding?.tvEmpty?.visibility = View.INVISIBLE
                             } else {
-                                binding?.tvEmpty?.visibility = View.VISIBLE
+                                binding?.tvEmpty?.apply {
+                                    text = getString(R.string.not_have_followers)
+                                    visibility = View.VISIBLE
+                                }
                             }
                             mUsersListAdapter.setListUsersData(listUser)
                         }
@@ -76,7 +79,10 @@ class UsersListFragment : Fragment() {
                             if (listUser.isNotEmpty()) {
                                 binding?.tvEmpty?.visibility = View.INVISIBLE
                             } else {
-                                binding?.tvEmpty?.visibility = View.VISIBLE
+                                binding?.tvEmpty?.apply {
+                                    text = getString(R.string.not_have_following)
+                                    visibility = View.VISIBLE
+                                }
                             }
                             mUsersListAdapter.setListUsersData(listUser)
                         }
@@ -90,7 +96,10 @@ class UsersListFragment : Fragment() {
                             if (listUser.isNotEmpty()) {
                                 binding?.tvEmpty?.visibility = View.INVISIBLE
                             } else {
-                                binding?.tvEmpty?.visibility = View.VISIBLE
+                                binding?.tvEmpty?.apply {
+                                    text = getString(R.string.users_not_found)
+                                    visibility = View.VISIBLE
+                                }
                             }
                             mUsersListAdapter.setListUsersData(listUser)
                         }

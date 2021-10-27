@@ -45,44 +45,8 @@ class UserHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.toolbar?.inflateMenu(R.menu.menu_main)
-        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView =
-            binding?.toolbar?.menu?.findItem(R.id.search)?.actionView as androidx.appcompat.widget.SearchView
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
-        searchView.queryHint = resources.getString(R.string.input_username)
-        searchView.setOnQueryTextListener(object :
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-
-            private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
-
-            private var searchJob: Job? = null
-
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                searchJob?.cancel()
-                searchJob = coroutineScope.launch {
-                    newText?.let {
-                        delay(500)
-                        if (it.isEmpty()) {
-                            viewModel.getAllUsers()
-                        } else {
-                            viewModel.searchUser(newText)
-                            viewModel.isLoading.observe(viewLifecycleOwner,
-                                { isLoading -> showLoading(isLoading) })
-                        }
-                    }
-                }
-                return false
-            }
-
-        })
-
         binding?.toolbar?.apply {
+            inflateMenu(R.menu.menu_main)
             this.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.search -> {
@@ -97,6 +61,44 @@ class UserHomeFragment : Fragment() {
                 }
                 true
             }
+        }
+
+        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView =
+            binding?.toolbar?.menu?.findItem(R.id.search)?.actionView as androidx.appcompat.widget.SearchView
+
+        searchView.apply {
+            setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+            queryHint = resources.getString(R.string.input_username)
+            setOnQueryTextListener(object :
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+                private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
+
+                private var searchJob: Job? = null
+
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    searchJob?.cancel()
+                    searchJob = coroutineScope.launch {
+                        newText?.let {
+                            delay(500)
+                            if (it.isEmpty()) {
+                                viewModel.getAllUsers()
+                            } else {
+                                viewModel.searchUser(newText)
+                                viewModel.isLoading.observe(viewLifecycleOwner,
+                                    { isLoading -> showLoading(isLoading) })
+                            }
+                        }
+                    }
+                    return false
+                }
+
+            })
         }
 
         val layoutManager = LinearLayoutManager(context)

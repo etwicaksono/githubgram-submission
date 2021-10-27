@@ -13,7 +13,7 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-        buildConfigField("String", "GITHUB_KEY", '"Bearer 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"')
+        buildConfigField("String", "GITHUB_KEY", '"your token"')
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -70,6 +70,10 @@ dependencies {
 
     /*ViewPager*/
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    /*Collapse toolbar*/
+    implementation "androidx.palette:palette-ktx:1.0.0"
+    implementation fileTree(dir: "libs", include: ["*.jar"])
 
 
     testImplementation 'junit:junit:4.13.2'

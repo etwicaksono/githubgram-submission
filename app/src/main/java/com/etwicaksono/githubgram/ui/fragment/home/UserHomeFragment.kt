@@ -111,6 +111,11 @@ class UserHomeFragment : Fragment() {
         viewModel.apply {
             listUsers.observe(viewLifecycleOwner, { listUser ->
                 if (listUser != null) {
+                    if (listUser.isNotEmpty()) {
+                        binding?.tvEmpty?.visibility = View.INVISIBLE
+                    } else {
+                        binding?.tvEmpty?.visibility = View.VISIBLE
+                    }
                     mHomeAdapter.setListUsersData(listUser)
                 }
             })

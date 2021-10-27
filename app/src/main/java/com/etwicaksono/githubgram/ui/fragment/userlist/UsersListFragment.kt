@@ -59,6 +59,11 @@ class UsersListFragment : Fragment() {
                     viewModel.getFollowersData(username)
                     followers.observe(viewLifecycleOwner, { listUser ->
                         if (listUser != null) {
+                            if (listUser.isNotEmpty()) {
+                                binding?.tvEmpty?.visibility = View.INVISIBLE
+                            } else {
+                                binding?.tvEmpty?.visibility = View.VISIBLE
+                            }
                             mUsersListAdapter.setListUsersData(listUser)
                         }
                     })
@@ -68,6 +73,11 @@ class UsersListFragment : Fragment() {
                     viewModel.getFollowingData(username)
                     followings.observe(viewLifecycleOwner, { listUser ->
                         if (listUser != null) {
+                            if (listUser.isNotEmpty()) {
+                                binding?.tvEmpty?.visibility = View.INVISIBLE
+                            } else {
+                                binding?.tvEmpty?.visibility = View.VISIBLE
+                            }
                             mUsersListAdapter.setListUsersData(listUser)
                         }
                     })
@@ -77,6 +87,11 @@ class UsersListFragment : Fragment() {
                     getAllUsers()
                     listUsers.observe(viewLifecycleOwner, { listUser ->
                         if (listUser != null) {
+                            if (listUser.isNotEmpty()) {
+                                binding?.tvEmpty?.visibility = View.INVISIBLE
+                            } else {
+                                binding?.tvEmpty?.visibility = View.VISIBLE
+                            }
                             mUsersListAdapter.setListUsersData(listUser)
                         }
                     })

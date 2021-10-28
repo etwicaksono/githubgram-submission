@@ -1,4 +1,4 @@
-package com.etwicaksono.githubgram.preferences
+package com.etwicaksono.githubgram.ui.fragment.setting
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -21,12 +21,12 @@ class SettingPreferences private constructor(private val dataStore:DataStore<Pre
 
     companion object{
         @Volatile
-        private var INSTANCE:SettingPreferences?=null
+        private var INSTANCE: SettingPreferences?=null
 
-        fun getInstance(dataStore: DataStore<Preferences>):SettingPreferences{
-            return INSTANCE?: synchronized(this){
-                val instance=SettingPreferences(dataStore)
-                INSTANCE=instance
+        fun getInstance(dataStore: DataStore<Preferences>): SettingPreferences {
+            return INSTANCE ?: synchronized(this){
+                val instance= SettingPreferences(dataStore)
+                INSTANCE =instance
                 instance
             }
         }

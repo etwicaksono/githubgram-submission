@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.etwicaksono.githubgram.ui.fragment.SettingFragment"
+        android:name="com.etwicaksono.githubgram.ui.fragment.setting.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
 </navigation>

@@ -12,6 +12,5 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         homeBinding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(homeBinding.root)
-
     }
 }

@@ -235,15 +235,16 @@
         app:layout_anchorGravity="center" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:contentDescription="@string/floating_favorite_button"
-        android:src="@drawable/ic_favorite_border_black_48"
         android:backgroundTint="@color/white"
+        android:contentDescription="@string/floating_favorite_button"
         android:scaleType="center"
-         app:tint="@null"
+        android:src="@drawable/ic_favorite_border_black_48"
         app:layout_anchor="@id/view_pager"
-        app:layout_anchorGravity="end|center" />
+        app:layout_anchorGravity="end|center"
+        app:tint="@null" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

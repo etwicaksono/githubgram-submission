@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.etwicaksono.githubgram.R
+import com.etwicaksono.githubgram.database.Favorite
 import com.etwicaksono.githubgram.databinding.FragmentDetailUserBinding
 import com.etwicaksono.githubgram.responses.ResponseUserDetail
+import com.etwicaksono.githubgram.ui.fragment.favorite.FavoriteViewModel
 import com.etwicaksono.githubgram.ui.fragment.userlist.UsersListPagerAdapter
 import com.etwicaksono.githubgram.ui.fragment.userlist.UsersListViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -23,7 +25,8 @@ class UserDetailFragment : Fragment() {
     private var _binding: FragmentDetailUserBinding? = null
     private val binding get() = _binding
     private lateinit var username: String
-    private lateinit var viewModel: UsersListViewModel
+    private lateinit var userViewModel: UsersListViewModel
+    private lateinit var favViewModel: FavoriteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,12 +55,30 @@ class UserDetailFragment : Fragment() {
                     tab.text = resources.getString(TAB_TITLES[position])
                 }.attach()
             }
+
+            fabFavorite.setOnClickListener {
+
+            }
+
         }
 
-        viewModel.apply {
-            viewModel.getUserData(username)
+        userViewModel.apply {
+            userViewModel.getUserData(username)
             isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
             userData.observe(viewLifecycleOwner, { userData -> setUserData(userData) })
+        }
+
+        favViewModel.apply {
+            getFavoriteByUsername(username).observe(viewLifecycleOwner,
+                { favorite -> setFavoriteStatus(favorite) })
+        }
+    }
+
+    private fun setFavoriteStatus(favorite: Favorite?) {
+        if (favorite != null) {
+            binding?.fabFavorite?.setImageResource(R.drawable.ic_favorite_red_48)
+        } else {
+            binding?.fabFavorite?.setImageResource(R.drawable.ic_favorite_border_black_48)
         }
     }
 
@@ -83,8 +104,11 @@ class UserDetailFragment : Fragment() {
         username =
             UserDetailFragmentArgs.fromBundle(arguments as Bundle).username
 
-        val model: UsersListViewModel by viewModels()
-        viewModel = model
+        val model1: UsersListViewModel by viewModels()
+        userViewModel = model1
+
+        val model2: FavoriteViewModel by viewModels { FavoriteViewModel.Factory(requireActivity().application) }
+        favViewModel = model2
     }
 
     override fun onDestroy() {

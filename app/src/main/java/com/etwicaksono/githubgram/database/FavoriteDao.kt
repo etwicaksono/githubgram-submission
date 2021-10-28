@@ -13,4 +13,7 @@ interface FavoriteDao {
 
     @Query("SELECT * FROM favorite ORDER BY id ASC")
     fun getAllFavorites():LiveData<List<Favorite>>
+
+    @Query("SELECT * FROM favorite WHERE username = :username")
+    fun getFavoriteByUsername(username:String):LiveData<Favorite>
 }

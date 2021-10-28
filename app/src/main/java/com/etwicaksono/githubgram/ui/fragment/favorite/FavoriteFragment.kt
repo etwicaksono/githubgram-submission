@@ -35,10 +35,8 @@ class FavoriteFragment : Fragment() {
 
         mFavoriteAdapter = FavoriteAdapter()
 
-        if (activity?.application != null) {
-            val model: FavoriteViewModel by viewModels { FavoriteViewModel.Factory(activity!!.application) }
-            _viewModel = model
-        }
+        val model: FavoriteViewModel by viewModels { FavoriteViewModel.Factory(requireActivity().application) }
+        _viewModel = model
 
         binding?.apply {
             this@FavoriteFragment.setHasOptionsMenu(true)

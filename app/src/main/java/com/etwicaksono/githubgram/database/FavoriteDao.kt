@@ -9,7 +9,7 @@ interface FavoriteDao {
     fun insert(mFavorite:Favorite)
 
     @Delete
-    fun delete(mFavorite:Favorite)
+    fun delete(mFavorite:Favorite?)
 
     @Query("SELECT * FROM favorite ORDER BY id ASC")
     fun getAllFavorites():LiveData<List<Favorite>>

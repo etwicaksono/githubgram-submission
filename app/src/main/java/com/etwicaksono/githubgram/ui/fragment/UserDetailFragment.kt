@@ -27,7 +27,8 @@ class UserDetailFragment : Fragment() {
     private lateinit var username: String
     private lateinit var userViewModel: UsersListViewModel
     private lateinit var favViewModel: FavoriteViewModel
-    private var dataUser:ResponseUserDetail?=null
+    private var dataUser: ResponseUserDetail? = null
+    private var favorite: Favorite? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,10 +61,15 @@ class UserDetailFragment : Fragment() {
             fabFavorite.setOnClickListener {
                 val fav = Favorite()
                 fav.apply {
-                    username=dataUser?.login
-                    avatar=dataUser?.avatarUrl
+                    username = dataUser?.login
+                    avatar = dataUser?.avatarUrl
                 }
-                favViewModel.insert(fav)
+
+                if (favorite != null) {
+                    favViewModel.delete(favorite)
+                } else {
+                    favViewModel.insert(fav)
+                }
             }
 
         }
@@ -76,12 +82,13 @@ class UserDetailFragment : Fragment() {
 
         favViewModel.apply {
             getFavoriteByUsername(username).observe(viewLifecycleOwner,
-                { favorite -> setFavoriteStatus(favorite) })
+                { favorite -> setFavorite(favorite) })
         }
     }
 
-    private fun setFavoriteStatus(favorite: Favorite?) {
-        if (favorite != null) {
+    private fun setFavorite(fav: Favorite?) {
+        favorite = fav
+        if (fav != null) {
             binding?.fabFavorite?.setImageResource(R.drawable.ic_favorite_red_48)
         } else {
             binding?.fabFavorite?.setImageResource(R.drawable.ic_favorite_border_black_48)
@@ -123,7 +130,7 @@ class UserDetailFragment : Fragment() {
     }
 
     private fun setUserData(userData: ResponseUserDetail?) {
-        dataUser=userData
+        dataUser = userData
 
         binding?.apply {
             Glide.with(imgUser.context)

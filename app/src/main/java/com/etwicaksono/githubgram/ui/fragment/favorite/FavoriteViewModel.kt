@@ -22,7 +22,7 @@ class FavoriteViewModel(application: Application):ViewModel() {
         mFavoriteRepository.insert(favorite)
     }
 
-    fun delete(favorite: Favorite){
+    fun delete(favorite: Favorite?){
         mFavoriteRepository.delete(favorite)
     }
 

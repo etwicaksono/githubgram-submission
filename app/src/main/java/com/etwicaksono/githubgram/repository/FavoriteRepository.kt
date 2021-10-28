@@ -23,7 +23,7 @@ class FavoriteRepository(application: Application) {
         executorService.execute { mFavoriteDao.insert(favorite) }
     }
 
-    fun delete(favorite: Favorite) {
+    fun delete(favorite: Favorite?) {
         executorService.execute { mFavoriteDao.delete(favorite) }
     }
 

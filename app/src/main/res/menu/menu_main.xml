@@ -11,7 +11,7 @@
         android:id="@+id/favorites"
         android:icon="@drawable/ic_favorite_border_24"
         android:title="@string/favorites"
-        app:showAsAction="collapseActionView" />
+        app:showAsAction="collapseActionView|ifRoom" />
     <item
         android:id="@+id/setting"
         android:icon="@drawable/ic_settings_24"

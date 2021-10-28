@@ -3,7 +3,6 @@ package com.etwicaksono.githubgram.ui.fragment.home
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,19 +48,20 @@ class UserHomeFragment : Fragment() {
             toolbar.inflateMenu(R.menu.menu_main)
             toolbar.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.search -> {
-                        Log.d(TAG, "onItemSelected : search")
-                    }
                     R.id.about -> {
                         val toDetailUserFragment =
                             UserHomeFragmentDirections.actionUserListFragmentToDetailUserFragment()
                         Navigation.findNavController(toolbar).navigate(toDetailUserFragment)
-                        Log.d(TAG, "onItemSelected : about")
                     }
-                    R.id.favorites->{
-                        val toFavoriteUsersFragment=UserHomeFragmentDirections.actionUserListFragmentToFavoriteFragment()
+                    R.id.favorites -> {
+                        val toFavoriteUsersFragment =
+                            UserHomeFragmentDirections.actionUserListFragmentToFavoriteFragment()
                         Navigation.findNavController(toolbar).navigate(toFavoriteUsersFragment)
-                        Log.d(TAG, "onItemSelected : favorite")
+                    }
+                    R.id.setting -> {
+                        val toSettingFragment =
+                            UserHomeFragmentDirections.actionUserListFragmentToSettingFragment()
+                        Navigation.findNavController(toolbar).navigate(toSettingFragment)
                     }
                 }
                 true

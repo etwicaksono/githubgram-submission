@@ -107,7 +107,7 @@ class UserDetailFragment : Fragment() {
 
             userData?.company.let {
                 if (it.isNullOrEmpty()) {
-                    tvCompany.visibility = View.INVISIBLE
+                    tvCompany.visibility = View.GONE
                 } else {
                     tvCompany.visibility = View.VISIBLE
                     tvCompany.text = userData?.company
@@ -116,7 +116,7 @@ class UserDetailFragment : Fragment() {
 
             userData?.location.let {
                 if (it.isNullOrEmpty()) {
-                    tvLocation.visibility = View.INVISIBLE
+                    tvLocation.visibility = View.GONE
                 } else {
                     tvLocation.visibility = View.VISIBLE
                     tvLocation.text = userData?.location
@@ -125,7 +125,7 @@ class UserDetailFragment : Fragment() {
 
             userData?.htmlUrl.let {
                 if (it.isNullOrEmpty()) {
-                    tvHtmlUrl.visibility = View.INVISIBLE
+                    tvHtmlUrl.visibility = View.GONE
                 } else {
                     tvHtmlUrl.visibility = View.VISIBLE
                     tvHtmlUrl.text = userData?.htmlUrl

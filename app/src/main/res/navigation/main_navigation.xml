@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_userListFragment_to_favoriteFragment"
             app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_userListFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailUserFragment"
@@ -46,4 +49,9 @@
         android:name="com.etwicaksono.githubgram.ui.fragment.favorite.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.etwicaksono.githubgram.ui.fragment.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

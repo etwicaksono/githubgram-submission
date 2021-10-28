@@ -33,7 +33,9 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mFavoriteAdapter = FavoriteAdapter()
+        mFavoriteAdapter = FavoriteAdapter(FavoriteAdapter.DeleteFavoriteListener {favorite->
+            viewModel?.delete(favorite)
+        })
 
         val model: FavoriteViewModel by viewModels { FavoriteViewModel.Factory(requireActivity().application) }
         _viewModel = model

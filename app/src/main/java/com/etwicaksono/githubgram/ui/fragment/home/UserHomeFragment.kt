@@ -45,9 +45,9 @@ class UserHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.toolbar?.apply {
-            inflateMenu(R.menu.menu_main)
-            this.setOnMenuItemClickListener {
+        binding?.apply {
+            toolbar.inflateMenu(R.menu.menu_main)
+            toolbar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.search -> {
                         Log.d(TAG, "onItemSelected : search")
@@ -55,51 +55,53 @@ class UserHomeFragment : Fragment() {
                     R.id.about -> {
                         val toDetailUserFragment =
                             UserHomeFragmentDirections.actionUserListFragmentToDetailUserFragment()
-                        Navigation.findNavController(this).navigate(toDetailUserFragment)
+                        Navigation.findNavController(toolbar).navigate(toDetailUserFragment)
                         Log.d(TAG, "onItemSelected : about")
                     }
                 }
                 true
             }
-        }
 
-        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView =
-            binding?.toolbar?.menu?.findItem(R.id.search)?.actionView as androidx.appcompat.widget.SearchView
 
-        searchView.apply {
-            setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
-            queryHint = resources.getString(R.string.input_username)
-            setOnQueryTextListener(object :
-                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+            val searchView =
+                toolbar.menu?.findItem(R.id.search)?.actionView as androidx.appcompat.widget.SearchView
 
-                private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
+            searchView.apply {
+                setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+                queryHint = resources.getString(R.string.input_username)
+                setOnQueryTextListener(object :
+                    androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
-                private var searchJob: Job? = null
+                    private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
 
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return false
-                }
+                    private var searchJob: Job? = null
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    searchJob?.cancel()
-                    searchJob = coroutineScope.launch {
-                        newText?.let {
-                            delay(500)
-                            if (it.isEmpty()) {
-                                viewModel.getAllUsers()
-                            } else {
-                                viewModel.searchUser(newText)
-                                viewModel.isLoading.observe(viewLifecycleOwner,
-                                    { isLoading -> showLoading(isLoading) })
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        searchJob?.cancel()
+                        searchJob = coroutineScope.launch {
+                            newText?.let {
+                                delay(500)
+                                if (it.isEmpty()) {
+                                    viewModel.getAllUsers()
+                                } else {
+                                    viewModel.searchUser(newText)
+                                    viewModel.isLoading.observe(viewLifecycleOwner,
+                                        { isLoading -> showLoading(isLoading) })
+                                }
                             }
                         }
+                        return false
                     }
-                    return false
-                }
 
-            })
+                })
+            }
         }
+
 
         val layoutManager = LinearLayoutManager(context)
         val itemDecoration = DividerItemDecoration(context, layoutManager.orientation)

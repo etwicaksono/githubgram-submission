@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/userListFragment">
+    app:startDestination="@id/userHomeFragment">
 
     <fragment
-        android:id="@+id/userListFragment"
+        android:id="@+id/userHomeFragment"
         android:name="com.etwicaksono.githubgram.ui.fragment.home.UserHomeFragment"
         android:label="fragment_user_list"
         tools:layout="@layout/fragment_user_home">
@@ -48,7 +48,11 @@
         android:id="@+id/favoriteFragment"
         android:name="com.etwicaksono.githubgram.ui.fragment.favorite.FavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailUserFragment"
+            app:destination="@id/detailUserFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.etwicaksono.githubgram.ui.fragment.SettingFragment"

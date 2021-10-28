@@ -27,9 +27,6 @@ class UsersListViewModel : ViewModel() {
     private val _followings = MutableLiveData<List<ResponseUserItem>>()
     val followings: LiveData<List<ResponseUserItem>> = _followings
 
-    private val _favorites = MutableLiveData<List<ResponseUserItem>>()
-    val favorites: LiveData<List<ResponseUserItem>> = _favorites
-
     private val _userData = MutableLiveData<ResponseUserDetail>()
     val userData: LiveData<ResponseUserDetail> = _userData
 

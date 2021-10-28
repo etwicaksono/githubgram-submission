@@ -27,6 +27,7 @@ class UserDetailFragment : Fragment() {
     private lateinit var username: String
     private lateinit var userViewModel: UsersListViewModel
     private lateinit var favViewModel: FavoriteViewModel
+    private var dataUser:ResponseUserDetail?=null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,7 +58,12 @@ class UserDetailFragment : Fragment() {
             }
 
             fabFavorite.setOnClickListener {
-
+                val fav = Favorite()
+                fav.apply {
+                    username=dataUser?.login
+                    avatar=dataUser?.avatarUrl
+                }
+                favViewModel.insert(fav)
             }
 
         }
@@ -117,6 +123,7 @@ class UserDetailFragment : Fragment() {
     }
 
     private fun setUserData(userData: ResponseUserDetail?) {
+        dataUser=userData
 
         binding?.apply {
             Glide.with(imgUser.context)

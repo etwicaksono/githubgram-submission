@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
@@ -17,7 +18,6 @@ import com.etwicaksono.githubgram.databinding.FragmentSettingBinding
 
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
-
 class SettingFragment : Fragment() {
 
     private var _binding: FragmentSettingBinding? = null
@@ -54,6 +54,10 @@ class SettingFragment : Fragment() {
                 binding?.switchTheme?.isChecked = false
             }
         })
+
+        binding?.switchTheme?.setOnCheckedChangeListener() { _:CompoundButton?,isChecked:Boolean->
+            viewModel.saveThemeSetting(isChecked)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

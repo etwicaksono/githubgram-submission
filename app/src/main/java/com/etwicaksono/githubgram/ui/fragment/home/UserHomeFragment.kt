@@ -58,6 +58,11 @@ class UserHomeFragment : Fragment() {
                         Navigation.findNavController(toolbar).navigate(toDetailUserFragment)
                         Log.d(TAG, "onItemSelected : about")
                     }
+                    R.id.favorites->{
+                        val toFavoriteUsersFragment=UserHomeFragmentDirections.actionUserListFragmentToFavoriteFragment()
+                        Navigation.findNavController(toolbar).navigate(toFavoriteUsersFragment)
+                        Log.d(TAG, "onItemSelected : favorite")
+                    }
                 }
                 true
             }

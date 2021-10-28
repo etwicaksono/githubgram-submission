@@ -3,10 +3,12 @@ package com.etwicaksono.githubgram.ui.fragment.favorite
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.etwicaksono.githubgram.database.Favorite
 import com.etwicaksono.githubgram.databinding.ItemRowUserFavoriteBinding
+import com.etwicaksono.githubgram.helper.FavoritesDiffCallback
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
     inner class ViewHolder(private val binding: ItemRowUserFavoriteBinding) :
@@ -41,5 +43,16 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return listFavorites.size
+    }
+
+    fun setFavorites(favorites: List<Favorite>) {
+        val diffCallback = FavoritesDiffCallback(this.listFavorites, favorites)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        this.listFavorites.apply {
+            clear()
+            addAll(favorites)
+        }
+        diffResult.dispatchUpdatesTo(this)
+
     }
 }

@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.etwicaksono.githubgram.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment : Fragment() {
@@ -14,7 +16,9 @@ class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding
 
-    private lateinit var viewModel: FavoriteViewModel
+    private var _viewModel: FavoriteViewModel? = null
+    private val viewModel get() = _viewModel
+
     private lateinit var mFavoriteAdapter: FavoriteAdapter
 
     override fun onCreateView(
@@ -29,11 +33,42 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mFavoriteAdapter = FavoriteAdapter()
+
+        if (activity?.application != null) {
+            val model: FavoriteViewModel by viewModels { FavoriteViewModel.Factory(activity!!.application) }
+            _viewModel = model
+        }
+
         binding?.apply {
             this@FavoriteFragment.setHasOptionsMenu(true)
             (activity as AppCompatActivity).setSupportActionBar(toolbar)
-            val actionBar=(activity as AppCompatActivity).supportActionBar
+            val actionBar = (activity as AppCompatActivity).supportActionBar
             actionBar?.setDisplayHomeAsUpEnabled(true)
+
+            rvUsers.apply {
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = mFavoriteAdapter
+            }
+
+        }
+
+
+
+        viewModel?.apply {
+            getAllFavorites().observe(viewLifecycleOwner, { favorites ->
+                if (favorites != null) {
+                    binding?.apply {
+                        if (favorites.isNotEmpty()) {
+                            tvEmpty.visibility = View.INVISIBLE
+                        } else {
+                            tvEmpty.visibility = View.VISIBLE
+                        }
+                    }
+                    mFavoriteAdapter.setFavorites(favorites)
+                }
+            })
         }
     }
 

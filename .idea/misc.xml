@@ -3,8 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable-night/ic_about_24.xml" value="0.3769230769230769" />
+        <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable-night/ic_baseline_search_24.xml" value="0.3769230769230769" />
+        <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable-night/ic_favorite_border_48.xml" value="0.3769230769230769" />
+        <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable-night/tab_selector.xml" value="0.3769230769230769" />
+        <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable/ic_about_24.xml" value="0.3769230769230769" />
+        <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable/ic_arrow_back_24.xml" value="0.3769230769230769" />
+        <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.3769230769230769" />
+        <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable/ic_delete_24.xml" value="0.3769230769230769" />
         <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable/ic_favorite_border_24.xml" value="0.3769230769230769" />
+        <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable/ic_favorite_border_48.xml" value="0.3769230769230769" />
+        <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable/ic_favorite_border_black_48.xml" value="0.3769230769230769" />
         <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable/ic_favorite_solid_24.xml" value="0.3769230769230769" />
+        <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/drawable/tab_selector.xml" value="0.3769230769230769" />
         <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/layout/activity_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/layout/activity_splashscreen.xml" value="0.36666666666666664" />
         <entry key="..\:/Data/Project/AndroidStudio/Android-Fundamental-ID-Camp/Githubgram/app/src/main/res/layout/fragment_detail_user.xml" value="0.33277169334456613" />

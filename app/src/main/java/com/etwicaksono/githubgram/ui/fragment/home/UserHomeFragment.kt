@@ -159,9 +159,4 @@ class UserHomeFragment : Fragment() {
         _binding = null
     }
 
-
-    companion object {
-        private val TAG = UserHomeFragment::class.java.simpleName
-    }
-
 }

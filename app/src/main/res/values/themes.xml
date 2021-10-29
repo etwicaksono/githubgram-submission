@@ -22,12 +22,12 @@
     </style>
 
 
-    <style name="body_text2" parent="Theme.Githubgram">
+    <style name="body_text1" parent="Theme.Githubgram">
         <item name="android:textColor">@color/grey_2</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="body_text3" parent="Theme.Githubgram">
+    <style name="body_text2" parent="Theme.Githubgram">
         <item name="android:textColor">@color/grey_2</item>
         <item name="android:textSize">23sp</item>
     </style>
@@ -51,7 +51,7 @@
         <item name="selectableItemBackground">?android:selectableItemBackground</item>
         <item name="selectableItemBackgroundBorderless">?android:selectableItemBackground</item>
         -->
-        <item name="android:background">@color/grey_1</item>
+        <item name="android:background">@color/white_2</item>
 
     </style>
 

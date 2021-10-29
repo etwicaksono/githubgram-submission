@@ -91,7 +91,7 @@ class UserDetailFragment : Fragment() {
         if (fav != null) {
             binding?.fabFavorite?.setImageResource(R.drawable.ic_favorite_red_48)
         } else {
-            binding?.fabFavorite?.setImageResource(R.drawable.ic_favorite_border_black_48)
+            binding?.fabFavorite?.setImageResource(R.drawable.ic_favorite_border_48)
         }
     }
 

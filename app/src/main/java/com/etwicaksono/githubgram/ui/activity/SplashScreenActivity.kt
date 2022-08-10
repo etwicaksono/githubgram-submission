@@ -17,6 +17,7 @@ import com.etwicaksono.githubgram.ui.fragment.setting.SettingViewModel
 
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,13 +26,13 @@ class SplashScreenActivity : AppCompatActivity() {
         val pref = this?.let { SettingPreferences.getInstance(it.dataStore) }
         val viewModel: SettingViewModel by viewModels { SettingViewModel.Factory(pref) }
 
-        viewModel.getThemeSettings()?.observe(this, { isDarkModeActive: Boolean ->
+        viewModel.getThemeSettings()?.observe(this) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
-        })
+        }
 
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this@SplashScreenActivity, HomeActivity::class.java))

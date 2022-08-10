@@ -57,7 +57,7 @@ class UsersListFragment : Fragment() {
             when (type) {
                 getString(R.string.follower) -> {
                     viewModel.getFollowersData(username)
-                    followers.observe(viewLifecycleOwner, { listUser ->
+                    followers.observe(viewLifecycleOwner) { listUser ->
                         if (listUser != null) {
                             if (listUser.isNotEmpty()) {
                                 binding?.tvEmpty?.visibility = View.INVISIBLE
@@ -69,12 +69,12 @@ class UsersListFragment : Fragment() {
                             }
                             mUsersListAdapter.setListUsersData(listUser)
                         }
-                    })
+                    }
                 }
 
                 getString(R.string.following) -> {
                     viewModel.getFollowingData(username)
-                    followings.observe(viewLifecycleOwner, { listUser ->
+                    followings.observe(viewLifecycleOwner) { listUser ->
                         if (listUser != null) {
                             if (listUser.isNotEmpty()) {
                                 binding?.tvEmpty?.visibility = View.INVISIBLE
@@ -86,12 +86,12 @@ class UsersListFragment : Fragment() {
                             }
                             mUsersListAdapter.setListUsersData(listUser)
                         }
-                    })
+                    }
                 }
 
                 else -> {
                     getAllUsers()
-                    listUsers.observe(viewLifecycleOwner, { listUser ->
+                    listUsers.observe(viewLifecycleOwner) { listUser ->
                         if (listUser != null) {
                             if (listUser.isNotEmpty()) {
                                 binding?.tvEmpty?.visibility = View.INVISIBLE
@@ -103,11 +103,11 @@ class UsersListFragment : Fragment() {
                             }
                             mUsersListAdapter.setListUsersData(listUser)
                         }
-                    })
+                    }
                 }
             }
             binding?.rvUsers?.adapter = mUsersListAdapter
-            isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
+            isLoading.observe(viewLifecycleOwner) { isLoading -> showLoading(isLoading) }
         }
 
     }

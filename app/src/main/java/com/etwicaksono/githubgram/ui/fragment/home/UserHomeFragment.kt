@@ -95,8 +95,9 @@ class UserHomeFragment : Fragment() {
                                     viewModel.getAllUsers()
                                 } else {
                                     viewModel.searchUser(newText)
-                                    viewModel.isLoading.observe(viewLifecycleOwner,
-                                        { isLoading -> showLoading(isLoading) })
+                                    viewModel.isLoading.observe(
+                                        viewLifecycleOwner
+                                    ) { isLoading -> showLoading(isLoading) }
                                 }
                             }
                         }
@@ -118,7 +119,7 @@ class UserHomeFragment : Fragment() {
         }
 
         viewModel.apply {
-            listUsers.observe(viewLifecycleOwner, { listUser ->
+            listUsers.observe(viewLifecycleOwner) { listUser ->
                 if (listUser != null) {
                     if (listUser.isNotEmpty()) {
                         binding?.tvEmpty?.visibility = View.INVISIBLE
@@ -127,13 +128,14 @@ class UserHomeFragment : Fragment() {
                     }
                     mHomeAdapter.setListUsersData(listUser)
                 }
-            })
-            isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
-            context?.let {
-                hasInternet(it).observe(viewLifecycleOwner,
-                    { internet -> checkInternet(internet) })
             }
-            errorMessage.observe(viewLifecycleOwner, { error -> showError(error) })
+            isLoading.observe(viewLifecycleOwner) { isLoading -> showLoading(isLoading) }
+            context?.let {
+                hasInternet(it).observe(
+                    viewLifecycleOwner
+                ) { internet -> checkInternet(internet) }
+            }
+            errorMessage.observe(viewLifecycleOwner) { error -> showError(error) }
         }
     }
 

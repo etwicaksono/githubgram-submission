@@ -18,6 +18,7 @@ import com.etwicaksono.githubgram.databinding.FragmentSettingBinding
 
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
 class SettingFragment : Fragment() {
 
     private var _binding: FragmentSettingBinding? = null
@@ -55,7 +56,7 @@ class SettingFragment : Fragment() {
             }
         })
 
-        binding?.switchTheme?.setOnCheckedChangeListener() { _:CompoundButton?,isChecked:Boolean->
+        binding?.switchTheme?.setOnCheckedChangeListener() { _: CompoundButton?, isChecked: Boolean ->
             viewModel.saveThemeSetting(isChecked)
         }
     }

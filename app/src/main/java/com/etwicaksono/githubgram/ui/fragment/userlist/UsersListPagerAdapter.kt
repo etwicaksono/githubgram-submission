@@ -7,7 +7,7 @@ import com.etwicaksono.githubgram.R
 class UsersListPagerAdapter(fm: Fragment, private val username: String) : FragmentStateAdapter(fm) {
 
     private val tab = listOf(
-        fm.getString(R.string.follower),fm.getString(R.string.following)
+        fm.getString(R.string.follower), fm.getString(R.string.following)
     )
 
     override fun createFragment(position: Int): Fragment {

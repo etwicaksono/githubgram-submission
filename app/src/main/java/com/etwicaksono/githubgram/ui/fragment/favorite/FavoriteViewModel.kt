@@ -7,26 +7,26 @@ import androidx.lifecycle.ViewModelProvider
 import com.etwicaksono.githubgram.database.Favorite
 import com.etwicaksono.githubgram.repository.FavoriteRepository
 
-class FavoriteViewModel(application: Application):ViewModel() {
-    class Factory(private val application:Application): ViewModelProvider.NewInstanceFactory() {
+class FavoriteViewModel(application: Application) : ViewModel() {
+    class Factory(private val application: Application) : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return FavoriteViewModel(application) as T
         }
     }
 
-    private val mFavoriteRepository:FavoriteRepository= FavoriteRepository(application)
+    private val mFavoriteRepository: FavoriteRepository = FavoriteRepository(application)
 
-    fun getAllFavorites():LiveData<List<Favorite>> = mFavoriteRepository.getAllFavorites()
+    fun getAllFavorites(): LiveData<List<Favorite>> = mFavoriteRepository.getAllFavorites()
 
-    fun insert(favorite: Favorite){
+    fun insert(favorite: Favorite) {
         mFavoriteRepository.insert(favorite)
     }
 
-    fun delete(favorite: Favorite?){
+    fun delete(favorite: Favorite?) {
         mFavoriteRepository.delete(favorite)
     }
 
-    fun getFavoriteByUsername(username:String):LiveData<Favorite>{
+    fun getFavoriteByUsername(username: String): LiveData<Favorite> {
         return mFavoriteRepository.getFavoriteByUsername(username)
     }
 }

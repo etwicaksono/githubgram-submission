@@ -17,7 +17,7 @@ class UsersListAdapter :
         val binding = ItemRowUserBinding.bind(view)
     }
 
-    private val listUser= ArrayList<ResponseUserItem>()
+    private val listUser = ArrayList<ResponseUserItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -40,9 +40,9 @@ class UsersListAdapter :
     }
 
 
-    fun setListUsersData(listUsers:List<ResponseUserItem>){
-        val diffCallback= UsersDiffCallback(this.listUser,listUsers)
-        val diffResult=DiffUtil.calculateDiff(diffCallback)
+    fun setListUsersData(listUsers: List<ResponseUserItem>) {
+        val diffCallback = UsersDiffCallback(this.listUser, listUsers)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         listUser.clear()
         listUser.addAll(listUsers)
         diffResult.dispatchUpdatesTo(this)

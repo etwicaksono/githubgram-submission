@@ -11,14 +11,14 @@ data class ResponseUserItem(
 )
 
 data class ResponseSearchUser(
-	@field:SerializedName("total_count")
-	val totalCount: Int,
+    @field:SerializedName("total_count")
+    val totalCount: Int,
 
-	@field:SerializedName("incomplete_results")
-	val incompleteResults: Boolean,
+    @field:SerializedName("incomplete_results")
+    val incompleteResults: Boolean,
 
-	@field:SerializedName("items")
-	val items: List<ResponseUserItem>,
+    @field:SerializedName("items")
+    val items: List<ResponseUserItem>,
 )
 
 data class ResponseUserDetail(
@@ -50,4 +50,4 @@ data class ResponseUserDetail(
     @field:SerializedName("location")
     val location: String,
 
-)
+    )

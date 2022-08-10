@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Githubgram">
         <activity
-            android:name="com.etwicaksono.githubgram.ui.activity.HomeActivity"
+            android:name="com.etwicaksono.githubgram.ui.activity.MainActivity"
             android:exported="false" />
         <activity
             android:name="com.etwicaksono.githubgram.ui.activity.SplashScreenActivity"

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.etwicaksono.githubgram.databinding.ActivityHomeBinding
 
 
-class HomeActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var homeBinding: ActivityHomeBinding
 

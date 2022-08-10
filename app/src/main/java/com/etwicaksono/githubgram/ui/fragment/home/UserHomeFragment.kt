@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.etwicaksono.githubgram.BuildConfig
 import com.etwicaksono.githubgram.R
 import com.etwicaksono.githubgram.databinding.FragmentUserHomeBinding
 import com.etwicaksono.githubgram.ui.fragment.userlist.UsersListViewModel
@@ -135,7 +136,12 @@ class UserHomeFragment : Fragment() {
                     viewLifecycleOwner
                 ) { internet -> checkInternet(internet) }
             }
-            errorMessage.observe(viewLifecycleOwner) { error -> showError(error) }
+
+            if (BuildConfig.DEBUG) errorMessage.observe(viewLifecycleOwner) { error ->
+                showError(
+                    error
+                )
+            }
         }
     }
 

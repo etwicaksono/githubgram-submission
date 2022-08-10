@@ -8,6 +8,8 @@ plugins {
 
 android {
     compileSdk 31
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
 
     defaultConfig {
         applicationId "com.etwicaksono.githubgram"
@@ -15,7 +17,7 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-        buildConfigField("String", "GITHUB_KEY", '"Bearer YOUR_TOKEN"')
+        buildConfigField("String", "GITHUB_KEY", properties.getProperty("github.key", ""))
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

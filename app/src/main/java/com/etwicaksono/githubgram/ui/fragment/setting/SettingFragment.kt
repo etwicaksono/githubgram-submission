@@ -46,7 +46,7 @@ class SettingFragment : Fragment() {
         val pref = context?.let { SettingPreferences.getInstance(it.dataStore) }
         val viewModel: SettingViewModel by viewModels { SettingViewModel.Factory(pref) }
 
-        viewModel.getThemeSettings()?.observe(viewLifecycleOwner, { isDarkModeActive: Boolean ->
+        viewModel.getThemeSettings()?.observe(viewLifecycleOwner) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 binding?.switchTheme?.isChecked = true
@@ -54,7 +54,7 @@ class SettingFragment : Fragment() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 binding?.switchTheme?.isChecked = false
             }
-        })
+        }
 
         binding?.switchTheme?.setOnCheckedChangeListener() { _: CompoundButton?, isChecked: Boolean ->
             viewModel.saveThemeSetting(isChecked)

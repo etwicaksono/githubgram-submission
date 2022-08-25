@@ -22,16 +22,16 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splashscreen)
 
-        val pref = this?.let { SettingPreferences.getInstance(it.dataStore) }
+        val pref = this.let { SettingPreferences.getInstance(it.dataStore) }
         val viewModel: SettingViewModel by viewModels { SettingViewModel.Factory(pref) }
 
-        viewModel.getThemeSettings()?.observe(this, { isDarkModeActive: Boolean ->
+        viewModel.getThemeSettings()?.observe(this) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
-        })
+        }
 
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this@SplashScreenActivity, HomeActivity::class.java))

@@ -57,7 +57,7 @@ class FavoriteFragment : Fragment() {
 
 
         viewModel?.apply {
-            getAllFavorites().observe(viewLifecycleOwner, { favorites ->
+            getAllFavorites().observe(viewLifecycleOwner) { favorites ->
                 if (favorites != null) {
                     binding?.apply {
                         if (favorites.isNotEmpty()) {
@@ -68,7 +68,7 @@ class FavoriteFragment : Fragment() {
                     }
                     mFavoriteAdapter.setFavorites(favorites)
                 }
-            })
+            }
         }
     }
 

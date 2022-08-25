@@ -15,7 +15,7 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-        buildConfigField("String", "GITHUB_KEY", '"Bearer YOUR_TOKEN"')
+        buildConfigField("String", "GITHUB_KEY", '"Bearer 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"')
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

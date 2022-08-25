@@ -107,7 +107,7 @@ class UsersListFragment : Fragment() {
                 }
             }
             binding?.rvUsers?.adapter = mUsersListAdapter
-            isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
+            isLoading.observe(viewLifecycleOwner) { isLoading -> showLoading(isLoading) }
         }
 
     }

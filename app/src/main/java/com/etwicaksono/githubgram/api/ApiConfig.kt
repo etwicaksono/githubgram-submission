@@ -12,9 +12,9 @@ class ApiConfig {
             val token = BuildConfig.GITHUB_KEY
 
             val loggingInterceptor =
-                if(BuildConfig.DEBUG){
+                if (BuildConfig.DEBUG) {
                     HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-                }else{
+                } else {
                     HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
                 }
 

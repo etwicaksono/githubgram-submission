@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.etwicaksono.githubgram.BuildConfig
 import com.etwicaksono.githubgram.R
 import com.etwicaksono.githubgram.databinding.FragmentUserHomeBinding
 import com.etwicaksono.githubgram.ui.fragment.userlist.UsersListViewModel
@@ -95,8 +96,9 @@ class UserHomeFragment : Fragment() {
                                     viewModel.getAllUsers()
                                 } else {
                                     viewModel.searchUser(newText)
-                                    viewModel.isLoading.observe(viewLifecycleOwner,
-                                        { isLoading -> showLoading(isLoading) })
+                                    viewModel.isLoading.observe(
+                                        viewLifecycleOwner
+                                    ) { isLoading -> showLoading(isLoading) }
                                 }
                             }
                         }
@@ -130,10 +132,16 @@ class UserHomeFragment : Fragment() {
             }
             isLoading.observe(viewLifecycleOwner) { isLoading -> showLoading(isLoading) }
             context?.let {
-                hasInternet(it).observe(viewLifecycleOwner
+                hasInternet(it).observe(
+                    viewLifecycleOwner
                 ) { internet -> checkInternet(internet) }
             }
-            errorMessage.observe(viewLifecycleOwner) { error -> showError(error) }
+
+            if (BuildConfig.DEBUG) errorMessage.observe(viewLifecycleOwner) { error ->
+                showError(
+                    error
+                )
+            }
         }
     }
 

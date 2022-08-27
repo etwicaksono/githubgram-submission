@@ -135,7 +135,7 @@
                     android:layout_marginBottom="8dp"
                     android:drawablePadding="8dp"
                     app:drawableStartCompat="@drawable/ic_logo_github_24"
-                    tools:text="https://github.com/etwicaksono" />
+                    tools:text="comp" />
 
                 <TextView
                     android:id="@+id/tv_location"

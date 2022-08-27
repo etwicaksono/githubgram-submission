@@ -7,14 +7,14 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
     Properties properties = new Properties()
     properties.load(project.rootProject.file("local.properties").newDataInputStream())
 
     defaultConfig {
         applicationId "com.etwicaksono.githubgram"
         minSdk 21
-        targetSdk 31
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         buildConfigField("String", "GITHUB_KEY", properties.getProperty("github.key", ""))
@@ -78,7 +78,7 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     /*Flexbox layout*/
-    implementation 'com.google.android:flexbox:0.3.0'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
     /*ViewPager*/
     implementation "androidx.viewpager2:viewpager2:1.0.0"

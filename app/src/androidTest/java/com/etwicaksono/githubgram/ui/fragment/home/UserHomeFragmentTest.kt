@@ -19,12 +19,12 @@ import org.mockito.Mockito.verify
 class UserHomeFragmentTest {
 
 
-
     @Test
     fun testNavigationFromHomeToFavorites() {
         // Create a mock NavController
         val mockNavController = mock(NavController::class.java)
-        val toFavoriteFragment=UserHomeFragmentDirections.actionUserListFragmentToFavoriteFragment()
+        val toFavoriteFragment =
+            UserHomeFragmentDirections.actionUserListFragmentToFavoriteFragment()
 
         // Create a graphical FragmentScenario for the TitleScreen
         val userHomeFragment = launchFragmentInContainer<UserHomeFragment>()
@@ -40,7 +40,7 @@ class UserHomeFragmentTest {
     }
 
     @Test
-    fun testSearchNotFound(){
+    fun testSearchNotFound() {
         launchFragmentInContainer<UserHomeFragment>()
 
         onView(withId(R.id.search)).perform(ViewActions.click())

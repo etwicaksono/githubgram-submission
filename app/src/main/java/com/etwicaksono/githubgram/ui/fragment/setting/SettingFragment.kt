@@ -37,6 +37,7 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
+            @Suppress("DEPRECATION")
             this@SettingFragment.setHasOptionsMenu(true)
             (activity as AppCompatActivity).setSupportActionBar(toolbar)
             val actionBar = (activity as AppCompatActivity).supportActionBar
@@ -56,11 +57,13 @@ class SettingFragment : Fragment() {
             }
         }
 
-        binding?.switchTheme?.setOnCheckedChangeListener() { _: CompoundButton?, isChecked: Boolean ->
+        binding?.switchTheme?.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
             viewModel.saveThemeSetting(isChecked)
         }
     }
 
+    @Deprecated("Deprecated in Java")
+    @Suppress("DEPRECATION")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {

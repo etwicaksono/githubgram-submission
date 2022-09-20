@@ -41,6 +41,7 @@ class FavoriteFragment : Fragment() {
         _viewModel = model
 
         binding?.apply {
+            @Suppress("DEPRECATION")
             this@FavoriteFragment.setHasOptionsMenu(true)
             (activity as AppCompatActivity).setSupportActionBar(toolbar)
             val actionBar = (activity as AppCompatActivity).supportActionBar
@@ -57,7 +58,7 @@ class FavoriteFragment : Fragment() {
 
 
         viewModel?.apply {
-            getAllFavorites().observe(viewLifecycleOwner, { favorites ->
+            getAllFavorites().observe(viewLifecycleOwner) { favorites ->
                 if (favorites != null) {
                     binding?.apply {
                         if (favorites.isNotEmpty()) {
@@ -68,26 +69,25 @@ class FavoriteFragment : Fragment() {
                     }
                     mFavoriteAdapter.setFavorites(favorites)
                 }
-            })
+            }
         }
     }
 
+    @Deprecated("Deprecated in Java")
+    @Suppress("DEPRECATION")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
                 activity?.onBackPressed()
             }
         }
+
         return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    companion object {
-        private val TAG = FavoriteFragment::class.java.simpleName
     }
 
 }

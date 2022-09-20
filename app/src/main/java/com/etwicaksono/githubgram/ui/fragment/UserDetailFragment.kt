@@ -51,7 +51,7 @@ class UserDetailFragment : Fragment() {
             val actionBar = (activity as AppCompatActivity).supportActionBar
             actionBar?.setDisplayHomeAsUpEnabled(true)
             collapsingToolbar.title = getString(R.string.app_name)
-            toolbarTextAppearence()
+            toolbarTextAppearance()
 
             val sectionsPagerAdapter = UsersListPagerAdapter(this@UserDetailFragment, username)
             viewPager.adapter = sectionsPagerAdapter
@@ -79,13 +79,14 @@ class UserDetailFragment : Fragment() {
 
         userViewModel.apply {
             userViewModel.getUserData(username)
-            isLoading.observe(viewLifecycleOwner, { isLoading -> showLoading(isLoading) })
-            userData.observe(viewLifecycleOwner, { userData -> setUserData(userData) })
+            isLoading.observe(viewLifecycleOwner) { isLoading -> showLoading(isLoading) }
+            userData.observe(viewLifecycleOwner) { userData -> setUserData(userData) }
         }
 
         favViewModel.apply {
-            getFavoriteByUsername(username).observe(viewLifecycleOwner,
-                { favorite -> setFavorite(favorite) })
+            getFavoriteByUsername(username).observe(
+                viewLifecycleOwner
+            ) { favorite -> setFavorite(favorite) }
         }
     }
 
@@ -107,7 +108,7 @@ class UserDetailFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun toolbarTextAppearence() {
+    private fun toolbarTextAppearance() {
         binding?.collapsingToolbar?.apply {
             setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
             setExpandedTitleTextAppearance(R.style.ExpandedAppBar)

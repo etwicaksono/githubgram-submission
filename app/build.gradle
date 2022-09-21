@@ -7,14 +7,14 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
     Properties properties = new Properties()
     properties.load(project.rootProject.file("local.properties").newDataInputStream())
 
     defaultConfig {
         applicationId "com.etwicaksono.githubgram"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         buildConfigField("String", "GITHUB_KEY", properties.getProperty("github.key", ""))
